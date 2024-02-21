@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Runtime.CompilerServices;
-
-int textSpeed = 1;
+﻿int textSpeed = 1;
 
 Shopkeeper Gragerfourth = new(){
     name = "Gragerfourth",
@@ -32,7 +29,7 @@ static int DecideTextSpeed(int textSpeed){
         TestDummy.ShopkeeperDialogue("This dialogue is written slowly, at around the pace the average person reads.", 35);
     }
     string desiredSpeed = Console.ReadLine().ToLower();
-    desiredSpeed = RemoveJunk(desiredSpeed);
+    desiredSpeed = Text.RemoveJunk(desiredSpeed);
     if (desiredSpeed is "fast" or "quick" or "quickly" or "speedy"){
         textSpeed = 3;
     }
@@ -50,46 +47,16 @@ static int DecideTextSpeed(int textSpeed){
     }
     else{
         textSpeed = 2;
-        ColourText(desiredSpeed, ConsoleColor.Yellow);
+        Text.ColourText(desiredSpeed, ConsoleColor.Yellow);
         Console.Write(" is ");
-        ColourText("invalid", ConsoleColor.Red);
+        Text.ColourText("invalid", ConsoleColor.Red);
         Console.Write(". Please write ");
-        ColourText("'quick', ", ConsoleColor.Cyan);
-        ColourText("'balanced', ", ConsoleColor.Green);
+        Text.ColourText("'quick', ", ConsoleColor.Cyan);
+        Text.ColourText("'balanced', ", ConsoleColor.Green);
         Console.Write("or ");
-        ColourText("'slow'", ConsoleColor.DarkGray);
+        Text.ColourText("'slow'", ConsoleColor.DarkGray);
         Console.Write(" instead.");
         Console.WriteLine();
     }
     return textSpeed;
-}
-static (string, ConsoleColor) ColourText(string text, ConsoleColor colourOption){
-    Console.ForegroundColor = colourOption;
-    Console.Write(text);
-    Console.ResetColor();
-    return(text, colourOption);
-}
-
-static string RemoveJunk(string text){
-    text = text.Replace(" ", "");
-    text = text.Replace(",", "");
-    text = text.Replace(".", "");
-    text = text.Replace("'", "");
-    text = text.Replace("´", "");
-    text = text.Replace("`", "");
-    text = text.Replace("¨", "");
-    text = text.Replace("^", "");
-    text = text.Replace("~", "");
-    text = text.Replace("*", "");
-    text = text.Replace("<", "");
-    text = text.Replace(">", "");
-    text = text.Replace("|", "");
-    text = text.Replace(";", "");
-    text = text.Replace(":", "");
-    text = text.Replace("\"", "");
-    text = text.Replace("!", "");
-    text = text.Replace("#", "");
-    text = text.Replace("¤", "");
-    text = text.Replace("%", "");
-    return text;
 }
