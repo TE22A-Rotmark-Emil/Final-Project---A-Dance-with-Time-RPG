@@ -12,16 +12,15 @@ Shopkeeper Gragerfourth = new(){
 };
 
 if (File.Exists("PersistentChoice.txt")){
-    foreach (string state in File.ReadAllLines("PersistentChoice.txt")){
-        if (Convert.ToInt32(state) != 0){
-            textSpeed = Convert.ToInt32(state);
-        }
-    }
+    textSpeed = ReadPersistence("TxtSpd");
+    Text.ColourText("The player has already made a choice, which was ", ConsoleColor.Green);
+    Console.Write(textSpeed);
+    Console.WriteLine();
 }
 while (textSpeed == 1 || textSpeed == 2){
     textSpeed = DecideTextSpeed(textSpeed);
 }
-File.WriteAllText("PersistentChoice.txt", Convert.ToString(textSpeed));
+File.WriteAllText("PersistentChoice.txt", "TxtSpd: " + Convert.ToString(textSpeed));
 
 Gragerfourth.ShopkeeperDialogue("What are you doing here? These brats, they're always trying to take my stuff!", textSpeed);
 string test = Console.ReadLine().ToLower();
@@ -72,4 +71,15 @@ static int DecideTextSpeed(int textSpeed){
         Console.WriteLine();
     }
     return textSpeed;
+}
+
+static int ReadPersistence(string identifier){
+    foreach (string state in File.ReadAllLines("PersistentChoice.txt")){
+        string[] states = state.Split(": ");
+        int value = Convert.ToInt32(states[1]);
+        if (identifier == states[0]){
+            return value;
+        }
+    }
+    return 1;
 }
