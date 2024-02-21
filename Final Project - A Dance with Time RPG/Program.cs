@@ -12,7 +12,11 @@ Shopkeeper Gragerfourth = new(){
 };
 
 if (File.Exists("PersistentChoice.txt")){
-    textSpeed = Convert.ToInt32(File.ReadAllText("PersistentChoice.txt"));
+    foreach (string state in File.ReadAllLines("PersistentChoice.txt")){
+        if (Convert.ToInt32(state) != 0){
+            textSpeed = Convert.ToInt32(state);
+        }
+    }
 }
 while (textSpeed == 1 || textSpeed == 2){
     textSpeed = DecideTextSpeed(textSpeed);
