@@ -1,4 +1,6 @@
-﻿int textSpeed = 1;
+﻿using System.IO;
+
+int textSpeed = 1;
 
 Shopkeeper Gragerfourth = new(){
     name = "Gragerfourth",
@@ -9,12 +11,19 @@ Shopkeeper Gragerfourth = new(){
     }
 };
 
+if (File.Exists("PersistentChoice.txt")){
+    textSpeed = Convert.ToInt32(File.ReadAllText("PersistentChoice.txt"));
+}
 while (textSpeed == 1 || textSpeed == 2){
     textSpeed = DecideTextSpeed(textSpeed);
 }
+File.WriteAllText("PersistentChoice.txt", Convert.ToString(textSpeed));
 
 Gragerfourth.ShopkeeperDialogue("What are you doing here? These brats, they're always trying to take my stuff!", textSpeed);
-Console.ReadLine();
+string test = Console.ReadLine().ToLower();
+if (test == "delete"){
+    File.Delete("PersistentChoice.txt");
+}
 
 static int DecideTextSpeed(int textSpeed){
     Shopkeeper TestDummy = new(){
