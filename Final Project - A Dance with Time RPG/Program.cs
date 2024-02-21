@@ -32,6 +32,7 @@ static int DecideTextSpeed(int textSpeed){
         TestDummy.ShopkeeperDialogue("This dialogue is written slowly, at around the pace the average person reads.", 35);
     }
     string desiredSpeed = Console.ReadLine().ToLower();
+    desiredSpeed = RemoveJunk(desiredSpeed);
     if (desiredSpeed is "fast" or "quick" or "quickly" or "speedy"){
         textSpeed = 3;
     }
@@ -67,4 +68,28 @@ static (string, ConsoleColor) ColourText(string text, ConsoleColor colourOption)
     Console.Write(text);
     Console.ResetColor();
     return(text, colourOption);
+}
+
+static string RemoveJunk(string text){
+    text = text.Replace(" ", "");
+    text = text.Replace(",", "");
+    text = text.Replace(".", "");
+    text = text.Replace("'", "");
+    text = text.Replace("´", "");
+    text = text.Replace("`", "");
+    text = text.Replace("¨", "");
+    text = text.Replace("^", "");
+    text = text.Replace("~", "");
+    text = text.Replace("*", "");
+    text = text.Replace("<", "");
+    text = text.Replace(">", "");
+    text = text.Replace("|", "");
+    text = text.Replace(";", "");
+    text = text.Replace(":", "");
+    text = text.Replace("\"", "");
+    text = text.Replace("!", "");
+    text = text.Replace("#", "");
+    text = text.Replace("¤", "");
+    text = text.Replace("%", "");
+    return text;
 }
