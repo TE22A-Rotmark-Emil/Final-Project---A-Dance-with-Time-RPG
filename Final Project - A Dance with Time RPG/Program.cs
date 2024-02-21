@@ -29,9 +29,7 @@ if (test == "delete"){
 }
 
 static int DecideTextSpeed(int textSpeed){
-    Shopkeeper TestDummy = new(){
-        name = "testDummy"
-    };
+    Shopkeeper TestDummy = new();
     if (textSpeed == 1){
         Console.WriteLine("Would you like a fast, balanced, or slow dialogue speed?");
         Thread.Sleep(750);
