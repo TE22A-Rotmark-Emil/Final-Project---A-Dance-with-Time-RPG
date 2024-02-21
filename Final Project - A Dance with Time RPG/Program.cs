@@ -49,10 +49,10 @@ static int DecideTextSpeed(int textSpeed){
     else if (desiredSpeed is "slow" or "slower" or "slowly"){
         textSpeed = 35;
     }
-    else if (desiredSpeed is "instant" or "super fast" or "superfast"){
+    else if (desiredSpeed is "instant" or "superfast"){
         textSpeed = 0;
     }
-    else if (desiredSpeed is "snail" or "very slow" or "uninstant"){
+    else if (desiredSpeed is "snail" or "veryslow" or "uninstant"){
         textSpeed = 150;
     }
     else{
