@@ -47,6 +47,7 @@ else{
 }
 
 Character.talk(Millylith, "Christ.. this headache, it's killing me.");
+Character.talk(Millylith, "W... who are you?");
 
 string test = Console.ReadLine().ToLower();
 if (test == "delete"){

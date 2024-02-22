@@ -58,15 +58,34 @@ public class Text(){
     }
 
     public static void NoSpeedPreference(){
-        Character TestDummy = new(){
+        Character t = new(){
             name = "dummy"
         };
         Console.WriteLine("Would you like a fast, balanced, or slow dialogue speed?");
         Thread.Sleep(750);
         Console.WriteLine("Example:");
-        Character.talk(TestDummy, "This dialogue is written quickly, and can be difficult to keep up with.", 3);
-        Character.talk(TestDummy, "This dialogue is written at a balanced pace, mildly faster than the average person reads.", 25);
-        Character.talk(TestDummy, "This dialogue is written slowly, at around the pace the average person reads.", 35);
+        static void exampleDialogue(string Dialogue, int textSpeed){
+            foreach (char a in Dialogue){
+                Console.Write(a);
+                if (a is ','){
+                    Thread.Sleep(textSpeed*3);
+                }
+                else if (a is '.' or '?' or '!'){
+                    Thread.Sleep(textSpeed*6);
+                }
+                else if (a is ' '){
+                    Thread.Sleep(textSpeed*0);
+                }
+                else{
+                    Thread.Sleep(textSpeed);
+                }
+            }
+            Console.WriteLine();
+            Thread.Sleep(textSpeed*18);
+        }
+        exampleDialogue("This dialogue is written quickly, and can be difficult to keep up with.", 3);
+        exampleDialogue("This dialogue is written at a balanced pace, mildly faster than the average person reads.", 25);
+        exampleDialogue("This dialogue is written slowly, at around the pace the average person reads.", 35);
     }
 
     public static int DecideTextSpeed(){

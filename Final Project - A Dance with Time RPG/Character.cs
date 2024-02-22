@@ -12,11 +12,11 @@ public class Character(){
     public bool isShopkeeper = false;
     public List<(string, int)> items;
 
+    /*/     Due to the removal of the "textSpeed" variable, this code is reused in the Text class, since the NoSpeedPreference method requires a variable textSpeed.
+    This is acceptable since I'm unlikely to need a variable textSpeed for any future encounter, and it becomes a lot easier to work with if textSpeed only needs to specified once.    /*/
     public static void talk(Character speaker, string Dialogue){
         int textSpeed = Persistence.ReadPersistence("TxtSpd");
-        if (speaker.name != "dummy" && speaker.name != "MC"){
-            Text.ColourText(speaker.name + ": ", speaker.colour);
-        }
+        Text.ColourText(speaker.name + ": ", speaker.colour);
         foreach (char a in Dialogue){
             Console.Write(a);
             if (a is ','){
