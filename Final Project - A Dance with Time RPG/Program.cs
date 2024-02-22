@@ -1,15 +1,30 @@
 ﻿using System.IO;
 
-int textSpeed = 1;
+#region Definitions
+int textSpeed;
 
-Shopkeeper Gragerfourth = new(){
+Character MC = new(){
+    name = "MC",
+    attack = 3,
+    defence = 1,
+    dodgeChance = 30,
+    maxHP = 20,
+    colour = ConsoleColor.Blue
+};
+
+Party MCParty = new(){
+    partyName = ""
+};
+
+Character Gragerfourth = new(){
     name = "Gragerfourth",
-    isConArtist = false,
+    isShopkeeper = true,
     colour = ConsoleColor.Red,
     items = new(){
         ("Cinnamon Bun", 5), ("Yorkshire Pudding", 10), ("Apple Pie", 7), ("Crêpe", 5), ("Waffle", 5)
     }
 };
+#endregion
 
 if (File.Exists("PersistentChoice.txt")){
     textSpeed = ReadPersistence("TxtSpd");
@@ -22,7 +37,6 @@ else{
     textSpeed = Text.DecideTextSpeed();
 }
 
-Gragerfourth.ShopkeeperDialogue("What are you doing here? These brats, they're always trying to take my stuff!", textSpeed);
 string test = Console.ReadLine().ToLower();
 if (test == "delete"){
     File.Delete("PersistentChoice.txt");

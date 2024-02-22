@@ -1,4 +1,4 @@
-class Text(){
+public class Text(){
     public static (string, ConsoleColor) ColourText(string text, ConsoleColor colourOption){
         Console.ForegroundColor = colourOption;
         Console.Write(text);
@@ -58,13 +58,15 @@ class Text(){
     }
 
     public static void NoSpeedPreference(){
-        Shopkeeper TestDummy = new();
+        Character TestDummy = new(){
+            name = "dummy"
+        };
         Console.WriteLine("Would you like a fast, balanced, or slow dialogue speed?");
         Thread.Sleep(750);
         Console.WriteLine("Example:");
-        TestDummy.ShopkeeperDialogue("This dialogue is written quickly, and can be difficult to keep up with.", 3);
-        TestDummy.ShopkeeperDialogue("This dialogue is written at a balanced pace, mildly faster than the average person reads.", 25);
-        TestDummy.ShopkeeperDialogue("This dialogue is written slowly, at around the pace the average person reads.", 35);
+        Character.talk(TestDummy, "This dialogue is written quickly, and can be difficult to keep up with.", 3);
+        Character.talk(TestDummy, "This dialogue is written at a balanced pace, mildly faster than the average person reads.", 25);
+        Character.talk(TestDummy, "This dialogue is written slowly, at around the pace the average person reads.", 35);
     }
 
     public static int DecideTextSpeed(){
