@@ -17,13 +17,10 @@ if (File.Exists("PersistentChoice.txt")){
     Console.Write(textSpeed);
     Console.WriteLine();
 }
-
-if (!File.Exists("PersistentChoice.txt")){
+else{
     Text.NoSpeedPreference();
-    Text.DecideTextSpeed();
+    textSpeed = Text.DecideTextSpeed();
 }
-
-File.WriteAllText("PersistentChoice.txt", "TxtSpd: " + Convert.ToString(textSpeed));
 
 Gragerfourth.ShopkeeperDialogue("What are you doing here? These brats, they're always trying to take my stuff!", textSpeed);
 string test = Console.ReadLine().ToLower();

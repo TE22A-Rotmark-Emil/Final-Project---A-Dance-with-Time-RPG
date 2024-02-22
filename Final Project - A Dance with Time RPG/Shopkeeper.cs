@@ -14,7 +14,7 @@ class Shopkeeper(){
                 Thread.Sleep(textSpeed*6);
             }
             else if (a is ' '){
-                Thread.Sleep(textSpeed*2);
+                Thread.Sleep(textSpeed*0);
             }
             else{
                 Thread.Sleep(textSpeed);
