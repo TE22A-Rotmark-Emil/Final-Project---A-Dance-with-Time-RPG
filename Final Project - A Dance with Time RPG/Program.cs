@@ -12,8 +12,8 @@ Character MC = new(){
     colour = ConsoleColor.Blue
 };
 
-Character Millylith = new(){
-    name = "Millylith",
+Character Paige = new(){
+    name = "Paige",
     attack = 1,
     defence = 2,
     dodgeChance = 0,
@@ -46,8 +46,8 @@ else{
     textSpeed = Text.DecideTextSpeed();
 }
 
-Character.talk(Millylith, "Christ.. this headache, it's killing me.");
-Character.talk(Millylith, "W... who are you?");
+Character.talk(Paige, "Christ.. this headache, it's killing me.");
+Character.talk(Paige, "W... who are you?");
 
 string test = Console.ReadLine().ToLower();
 if (test == "delete"){
