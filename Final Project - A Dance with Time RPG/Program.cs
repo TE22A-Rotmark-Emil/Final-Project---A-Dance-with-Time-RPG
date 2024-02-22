@@ -12,6 +12,15 @@ Character MC = new(){
     colour = ConsoleColor.Blue
 };
 
+Character Millylith = new(){
+    name = "Millylith",
+    attack = 1,
+    defence = 2,
+    dodgeChance = 0,
+    maxHP = 10,
+    colour = ConsoleColor.Green
+};
+
 Party MCParty = new(){
     partyName = ""
 };
@@ -27,7 +36,7 @@ Character Gragerfourth = new(){
 #endregion
 
 if (File.Exists("PersistentChoice.txt")){
-    textSpeed = ReadPersistence("TxtSpd");
+    textSpeed = Persistence.ReadPersistence("TxtSpd");
     Text.ColourText("The player has already made a choice, which was ", ConsoleColor.Green);
     Console.Write(textSpeed);
     Console.WriteLine();
@@ -37,18 +46,9 @@ else{
     textSpeed = Text.DecideTextSpeed();
 }
 
+Character.talk(Millylith, "Christ.. this headache, it's killing me.");
+
 string test = Console.ReadLine().ToLower();
 if (test == "delete"){
     File.Delete("PersistentChoice.txt");
-}
-
-static int ReadPersistence(string identifier){
-    foreach (string state in File.ReadAllLines("PersistentChoice.txt")){
-        string[] states = state.Split(": ");
-        int value = Convert.ToInt32(states[1]);
-        if (identifier == states[0]){
-            return value;
-        }
-    }
-    return 1;
 }

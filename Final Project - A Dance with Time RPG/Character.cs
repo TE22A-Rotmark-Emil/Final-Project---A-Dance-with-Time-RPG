@@ -12,7 +12,8 @@ public class Character(){
     public bool isShopkeeper = false;
     public List<(string, int)> items;
 
-    public static void talk(Character speaker, string Dialogue, int textSpeed){
+    public static void talk(Character speaker, string Dialogue){
+        int textSpeed = Persistence.ReadPersistence("TxtSpd");
         if (speaker.name != "dummy" && speaker.name != "MC"){
             Text.ColourText(speaker.name + ": ", speaker.colour);
         }
