@@ -13,7 +13,8 @@ public class Text(){
         return(text, colourOption);
     }
 
-    public static string RemoveJunk(string text){
+    public static string RemoveJunkTxt(string text){
+        text = text.ToLower();
         text = text.Replace(" ", "");
         text = text.Replace(",", "");
         text = text.Replace(".", "");
@@ -64,6 +65,48 @@ public class Text(){
         return text;
     }
 
+    public static string RemoveJunkInt(string text){
+        text = text.ToLower();
+        text = text.Replace(" ", "");
+        text = text.Replace(",", "");
+        text = text.Replace(".", "");
+        text = text.Replace("'", "");
+        text = text.Replace("´", "");
+        text = text.Replace("`", "");
+        text = text.Replace("¨", "");
+        text = text.Replace("^", "");
+        text = text.Replace("~", "");
+        text = text.Replace("*", "");
+        text = text.Replace("<", "");
+        text = text.Replace(">", "");
+        text = text.Replace("|", "");
+        text = text.Replace(";", "");
+        text = text.Replace(":", "");
+        text = text.Replace("\"", "");
+        text = text.Replace("!", "");
+        text = text.Replace("#", "");
+        text = text.Replace("¤", "");
+        text = text.Replace("%", "");
+        text = text.Replace("+", "");
+        text = text.Replace("@", "");
+        text = text.Replace("£", "");
+        text = text.Replace("$", "");
+        text = text.Replace("€", "");
+        text = text.Replace("&", "");
+        text = text.Replace("/", "");
+        text = text.Replace("{", "");
+        text = text.Replace("(", "");
+        text = text.Replace("[", "");
+        text = text.Replace(")", "");
+        text = text.Replace("]", "");
+        text = text.Replace("=", "");
+        text = text.Replace("}", "");
+        text = text.Replace("\\", "");
+        text = text.Replace("§", "");
+        text = text.Replace("½", "");
+        return text;
+    }
+
     public static void NoSpeedPreference(){
         Character t = new(){
             name = "dummy"
@@ -99,8 +142,8 @@ public class Text(){
         int textSpeed = 0;
         bool choice = false;
         while (choice == false){            
-            string desiredSpeed = Console.ReadLine().ToLower();
-            desiredSpeed = RemoveJunk(desiredSpeed);
+            string desiredSpeed = Console.ReadLine();
+            desiredSpeed = RemoveJunkTxt(desiredSpeed);
             choice = true;
             if (desiredSpeed is "fast" or "quick" or "quickly" or "speedy"){
                 textSpeed = 3;

@@ -1,6 +1,6 @@
 public class Input(){
     public static string CheckValid(string input, List<string> validInputs){
-        input = input.ToLower();
+        input = Text.RemoveJunkInt(input);
         bool validInput = false;
         foreach (string a in validInputs){
             if (a == input){
@@ -21,7 +21,8 @@ public class Input(){
                     Text.ColourText(a + ", ", ConsoleColor.White);
                 }
             }
-            input = Console.ReadLine().ToLower();
+            input = Console.ReadLine();
+            input = Text.RemoveJunkInt(input);
             foreach (string a in validInputs){
                 if (a == input){
                     validInput = true;
