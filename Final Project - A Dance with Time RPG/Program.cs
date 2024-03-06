@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
 
+// todo: add "removejunk" to the text class that doesn't remove numbers so that it can be used in the input class to remove junk.
+
 #region Definitions
 string area = "void";
 int textSpeed;
