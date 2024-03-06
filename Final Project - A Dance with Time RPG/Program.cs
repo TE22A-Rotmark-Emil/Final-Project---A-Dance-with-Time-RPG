@@ -55,7 +55,7 @@ else{
 }
 
 #region InitialEncounter
-Character.talk(Unknown, "Christ.. this headache is killing me.");
-Character.talk(Unknown, "W... who are you?");
-Interaction.Dialogue("paigeEncounter");
+Character.Talk(Unknown, "Christ.. this headache is killing me.");
+Character.Talk(Unknown, "W... who are you?");
+Interaction.Dialogue("paigeEncounter", Paige);
 #endregion
