@@ -57,5 +57,13 @@ else{
 #region InitialEncounter
 Character.Talk(Unknown, "Christ.. this headache is killing me.");
 Character.Talk(Unknown, "W... who are you?");
-Interaction.Dialogue("paigeEncounter", Paige);
+area = Interaction.Dialogue("paigeEncounter", Paige);
 #endregion
+
+if (area == "Path of Remembrance"){
+    Interaction.NewMember(Paige, MCParty);
+    Console.ReadLine();
+}
+else if (area == "Path of Pain"){
+
+}

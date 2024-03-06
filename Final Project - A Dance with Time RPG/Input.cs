@@ -15,10 +15,10 @@ public class Input(){
             foreach (string a in validInputs){
                 i++;
                 if (i == totalLength){
-                    Text.ColourTextline("or " + a + ".", ConsoleColor.White);
+                    Text.ColourTextline("or " + a + ".", ConsoleColor.Gray);
                 }
                 else{
-                    Text.ColourText(a + ", ", ConsoleColor.White);
+                    Text.ColourText(a + ", ", ConsoleColor.Gray);
                 }
             }
             input = Console.ReadLine();

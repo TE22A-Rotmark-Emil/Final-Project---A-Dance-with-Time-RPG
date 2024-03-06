@@ -38,12 +38,20 @@ public class Character(){
     public static void Act(Character actor, string action){
         int textSpeed = Persistence.ReadPersistence("TxtSpd");
         Console.Write("* ");
+        if (actor.name == "???"){
+            actor.name = "They";
+            actor.colour = ConsoleColor.Gray;
+        }
         Text.ColourText(actor.name + " ", actor.colour);
         foreach (char a in action){
             Console.Write(a);
             Thread.Sleep(textSpeed);
         }
         Console.WriteLine();
+        if (actor.name == "They"){
+            actor.name = "???";
+            actor.colour = ConsoleColor.DarkGray;
+        }
         Thread.Sleep(textSpeed*9);
     }
 }
