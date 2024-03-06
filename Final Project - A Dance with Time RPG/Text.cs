@@ -6,6 +6,13 @@ public class Text(){
         return(text, colourOption);
     }
 
+    public static (string, ConsoleColor) ColourTextline(string text, ConsoleColor colourOption){
+        Console.ForegroundColor = colourOption;
+        Console.WriteLine(text);
+        Console.ResetColor();
+        return(text, colourOption);
+    }
+
     public static string RemoveJunk(string text){
         text = text.Replace(" ", "");
         text = text.Replace(",", "");

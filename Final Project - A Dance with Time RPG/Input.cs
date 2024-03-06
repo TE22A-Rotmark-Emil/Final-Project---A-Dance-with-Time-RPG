@@ -15,7 +15,17 @@ public class Input(){
             foreach (string a in validInputs){
                 i++;
                 if (i == totalLength){
-                    
+                    Text.ColourTextline("or " + a + ".", ConsoleColor.White);
+                }
+                else{
+                    Text.ColourText(a + ", ", ConsoleColor.White);
+                }
+            }
+            input = Console.ReadLine().ToLower();
+            foreach (string a in validInputs){
+                if (a == input){
+                    validInput = true;
+                    break;
                 }
             }
         }
