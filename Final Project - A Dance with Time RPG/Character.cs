@@ -14,10 +14,10 @@ public class Character(){
 
     /*/     Due to the removal of the "textSpeed" variable, this code is reused in the Text class, since the NoSpeedPreference method requires a variable textSpeed.
     This is acceptable since I'm unlikely to need a variable textSpeed for any future encounter, and it becomes a lot easier to work with if textSpeed only needs to specified once.    /*/
-    public static void Talk(Character speaker, string Dialogue){
+    public static void Talk(Character speaker, string dialogue){
         int textSpeed = Persistence.ReadPersistence("TxtSpd");
         Text.ColourText(speaker.name + ": ", speaker.colour);
-        foreach (char a in Dialogue){
+        foreach (char a in dialogue){
             Console.Write(a);
             if (a is ','){
                 Thread.Sleep(textSpeed*3);
@@ -35,5 +35,15 @@ public class Character(){
         Console.WriteLine();
         Thread.Sleep(textSpeed*18);
     }
-    public static 
+    public static void Act(Character actor, string action){
+        int textSpeed = Persistence.ReadPersistence("TxtSpd");
+        Console.Write("* ");
+        Text.ColourText(actor.name + " ", actor.colour);
+        foreach (char a in action){
+            Console.Write(a);
+            Thread.Sleep(textSpeed);
+        }
+        Console.WriteLine();
+        Thread.Sleep(textSpeed*9);
+    }
 }
