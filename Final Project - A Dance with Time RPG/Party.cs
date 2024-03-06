@@ -1,4 +1,4 @@
 public class Party(){
     public string partyName;
-    public List<Character> party;
+    public List<Character> party = new();
 }

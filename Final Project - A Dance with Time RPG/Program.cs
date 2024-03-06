@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Runtime.CompilerServices;
 
 #region Definitions
+string area = "void";
 int textSpeed;
 
 Character MC = new(){
@@ -10,6 +12,11 @@ Character MC = new(){
     dodgeChance = 30,
     maxHP = 20,
     colour = ConsoleColor.Blue
+};
+
+Character Unknown = new(){
+    name = "???",
+    colour = ConsoleColor.DarkGray
 };
 
 Character Paige = new(){
@@ -24,6 +31,7 @@ Character Paige = new(){
 Party MCParty = new(){
     partyName = ""
 };
+MCParty.party.Add(MC);
 
 Character Gragerfourth = new(){
     name = "Gragerfourth",
@@ -46,10 +54,8 @@ else{
     textSpeed = Text.DecideTextSpeed();
 }
 
-Character.talk(Paige, "Christ.. this headache, it's killing me.");
-Character.talk(Paige, "W... who are you?");
-
-string test = Console.ReadLine().ToLower();
-if (test == "delete"){
-    File.Delete("PersistentChoice.txt");
-}
+#region InitialEncounter
+Character.talk(Unknown, "Christ.. this headache is killing me.");
+Character.talk(Unknown, "W... who are you?");
+Interaction.Dialogue("paigeEncounter");
+#endregion
