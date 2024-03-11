@@ -2,7 +2,8 @@
 using System.Runtime.CompilerServices;
 
 #region Definitions
-string area = "void";
+string area = "unknown";
+List<Character> dialoguePartners = new();
 int textSpeed;
 
 Character MC = new(){
@@ -26,6 +27,15 @@ Character Paige = new(){
     dodgeChance = 0,
     maxHP = 10,
     colour = ConsoleColor.Green
+};
+
+Character Gabriel = new(){
+    name = "Gabriel",
+    attack = 35,
+    defence = 10,
+    dodgeChance = 0,
+    maxHP = 1500,
+    colour = ConsoleColor.DarkYellow
 };
 
 Party MCParty = new(){
@@ -54,16 +64,21 @@ else{
     textSpeed = Text.DecideTextSpeed();
 }
 
-#region InitialEncounter
-Character.Talk(Unknown, "Christ.. this headache is killing me.");
-Character.Talk(Unknown, "W... who are you?");
-area = Interaction.Dialogue("paigeEncounter", Paige);
-#endregion
-
-if (area == "Path of Remembrance"){
-    Interaction.NewMember(Paige, MCParty);
-    Console.ReadLine();
+if (area == "unknown"){    
+    Character.Talk(Unknown, "Christ.. this headache is killing me.");
+    Character.Talk(Unknown, "W... who are you?");
+    dialoguePartners = new(){Paige};
+    string paigeJoin = Interaction.Dialogue("paigeEncounter", dialoguePartners);
+    if (paigeJoin == "Paige joins"){
+        Interaction.NewMember(Paige, MCParty);
+        Thread.Sleep(10*textSpeed);
+    }
+    area = "Rancher Refuge";
 }
-else if (area == "Path of Pain"){
 
+if (area == "Rancher Refuge"){
+    if (MCParty.party.Count > 1){
+        dialoguePartners = new(){Paige, };
+    }
+    area = Interaction.Dialogue("", dialoguePartners);
 }

@@ -2,7 +2,7 @@ using System.IO.Pipes;
 using System.Text.Json.Serialization;
 
 public class Interaction(){
-    public static string Dialogue(string dialogueType, Character dialoguePartner){
+    public static string Dialogue(string dialogueType, List<Character> dialoguePartners){
         // Since "Unknown" is defined outside of this parameter, they'll have to be redefined in Interaction since it is likely that an interaction can include Unknown.
         Character Unknown = new(){
             name = "???",
@@ -31,7 +31,7 @@ public class Interaction(){
                 else if (response == "3" || response == "4") {response = "no new party member, paige unknown";}
             }
             if (response == "who are you?"){
-                Character.Talk(dialoguePartner, "I'm Paige, I'm an adventurer. Again, though, what is your name?");
+                Character.Talk(dialoguePartners[0], "I'm Paige, I'm an adventurer. Again, though, what is your name?");
                 Text.ColourTextline("1. I don't know my name, sorry", ConsoleColor.DarkCyan);
                 Text.ColourTextline("2. That's none of your business", ConsoleColor.DarkRed);
                 validResponse = new(){"1", "2"};
@@ -44,7 +44,7 @@ public class Interaction(){
                 Character.Talk(Unknown, "Er? You sure?");
                 Character.Act(Unknown, "tilt their head, then place their scalp into the palm of their hand");
                 Character.Talk(Unknown, "How about this, I tell you my name, and you tell me yours, m'kay?");
-                Character.Talk(dialoguePartner, "I'm Paige, I'm an adventurer. So, with that out of the way, what is your name?");
+                Character.Talk(dialoguePartners[0], "I'm Paige, I'm an adventurer. So, with that out of the way, what is your name?");
                 Text.ColourTextline("1. I really don't know my name", ConsoleColor.DarkCyan);
                 Text.ColourTextline("2. That's none of your business", ConsoleColor.DarkRed);
                 validResponse = new(){"1", "2"};
@@ -54,10 +54,10 @@ public class Interaction(){
                 else if (response == "2"){response = "no new party member, paige known";}
             }
             if (response == "no name, paige known"){
-                Character.Act(dialoguePartner, "scratches her scalp");
-                Character.Talk(dialoguePartner, "Wh.. what do you mean? Y... you have a name, right?");
-                Character.Talk(dialoguePartner, "Surely, your friends call you something, right??");
-                Character.Talk(dialoguePartner, "If I were to get into danger, and I'd call you, what would I say???");
+                Character.Act(dialoguePartners[0], "scratches her scalp");
+                Character.Talk(dialoguePartners[0], "Wh.. what do you mean? Y... you have a name, right?");
+                Character.Talk(dialoguePartners[0], "Surely, your friends call you something, right??");
+                Character.Talk(dialoguePartners[0], "If I were to get into danger, and I'd call you, what would I say???");
                 Text.ColourTextline("1. Superguy", ConsoleColor.Yellow);
                 Text.ColourTextline("2. Superboy", ConsoleColor.Yellow);
                 Text.ColourTextline("3. Supergirl", ConsoleColor.Yellow);
@@ -68,9 +68,9 @@ public class Interaction(){
             }
             if (response == "blanked out"){
                 Character.Act(MC, "couldn't think of anything. You simply stood there and shrugged");
-                Character.Act(dialoguePartner, "simply sighs at your response");
-                Character.Talk(dialoguePartner, "Well, that's a first.");
-                Character.Talk(dialoguePartner, "Why are you out here, then? Trying to figure out who you are?");
+                Character.Act(dialoguePartners[0], "simply sighs at your response");
+                Character.Talk(dialoguePartners[0], "Well, that's a first.");
+                Character.Talk(dialoguePartners[0], "Why are you out here, then? Trying to figure out who you are?");
                 Text.ColourTextline("1. Yea", ConsoleColor.DarkCyan);
                 Text.ColourText("2. Nod ", ConsoleColor.DarkCyan);
                 Text.ColourTextline("(action)", ConsoleColor.Yellow);
@@ -82,8 +82,8 @@ public class Interaction(){
                 else{response = "not figuring myself out";}
             }
             if (response == "not figuring myself out"){
-                Character.Act(dialoguePartner, "raises her eyebrow and looks intently at you");
-                Character.Talk(dialoguePartner, "What? Why are you here then?");
+                Character.Act(dialoguePartners[0], "raises her eyebrow and looks intently at you");
+                Character.Talk(dialoguePartners[0], "What? Why are you here then?");
                 bool hasPickedJokeAnswer = false;
                 while (response == "not figuring myself out"){
                     Text.ColourTextline("1. I was just joking, I plan on figuring out who I am", ConsoleColor.DarkCyan);
@@ -115,7 +115,7 @@ public class Interaction(){
                     }
                 }
                 if (response == "1"){
-                    Character.Talk(dialoguePartner, "What a... 'fine' sense of humour?");
+                    Character.Talk(dialoguePartners[0], "What a... 'fine' sense of humour?");
                     response = "figuring myself out";
                 }
                 else if (response == "3"){
@@ -123,9 +123,9 @@ public class Interaction(){
                 }
             }
             if (response == "figuring myself out"){
-                Character.Act(dialoguePartner, "straightens her posture and smiles");
-                Character.Talk(dialoguePartner, "Well, beats whatever I was doing, that's for sure.");
-                Character.Talk(dialoguePartner, "Mind if I join?");
+                Character.Act(dialoguePartners[0], "straightens her posture and smiles");
+                Character.Talk(dialoguePartners[0], "Well, beats whatever I was doing, that's for sure.");
+                Character.Talk(dialoguePartners[0], "Mind if I join?");
                 Text.ColourTextline("1. I'd be happy to have you join", ConsoleColor.DarkCyan);
                 Text.ColourTextline("2. No, I wouldn't mind", ConsoleColor.DarkCyan);
                 Text.ColourTextline("3. Please do", ConsoleColor.DarkCyan);
@@ -137,27 +137,27 @@ public class Interaction(){
                 if (response == "4") {response = "no new party member, paige known";}
             }
             if (response == "new party member"){
-                Character.Talk(dialoguePartner, "Sweet. Where are we heading?");
-                return("Path of Remembrance");
+                Character.Talk(dialoguePartners[0], "Sweet. Where are we heading?");
+                return "Paige joins";
             }
             else if (response == "no new party member, paige known"){
-                Character.Act(dialoguePartner, "tilts her head");
-                Character.Talk(dialoguePartner, "Erm, okay? Suit yourself, then.");
-                Character.Act(dialoguePartner, "walks out into the distance, carrying some sort of elixir");
-                return("Path of Pain");
+                Character.Act(dialoguePartners[0], "tilts her head");
+                Character.Talk(dialoguePartners[0], "Erm, okay? Suit yourself, then.");
+                Character.Act(dialoguePartners[0], "walks out into the distance, carrying some sort of elixir");
+                return "Paige doesn't join";
             }
             else if (response == "no new party member, paige unknown"){
                 Character.Act(Unknown, "tilt their head");
                 Character.Talk(Unknown, "Right, mind my own business and all that. Take care, I guess.");
                 Character.Act(Unknown, "walk out into the distance, carrying some sort of elixir");
-                return("Path of Pain");
+                return "Paige doesn't join";
             }
             else{
-                return("Path of Pain");
+                return "Paige doesn't join";
             }
         }
         else{
-            return "void";
+            return "Paige doesn't join";
         }
     }
 
