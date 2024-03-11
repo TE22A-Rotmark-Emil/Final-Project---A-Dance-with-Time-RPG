@@ -19,7 +19,7 @@ public class Interaction(){
             if (response == ""){
                 Text.ColourTextline("How do you respond?", ConsoleColor.Cyan);
                 Text.ColourTextline("1. Who are you?", ConsoleColor.DarkCyan);
-                Text.ColourTextline("2. I don't know my name, sorry.", ConsoleColor.Red);
+                Text.ColourTextline("2. I don't know my name, sorry.", ConsoleColor.DarkCyan);
                 Text.ColourTextline("3. It'd be better if you avoided asking questions.", ConsoleColor.DarkRed);
                 Text.ColourTextline("4. That's none of your business.", ConsoleColor.DarkRed);
                 validResponse = new(){"1", "2", "3", "4"};
@@ -27,7 +27,7 @@ public class Interaction(){
                 response = Input.CheckValid(response, validResponse);
                 // looks slightly ugly but takes up less space, will be used extensively
                 if (response == "1") {response = "who are you?";}
-                else if (response == "2") {response = "i don't know";}
+                else if (response == "2") {response = "no name, paige unknown";}
                 else if (response == "3" || response == "4") {response = "no new party member, paige unknown";}
             }
             if (response == "who are you?"){
@@ -38,6 +38,19 @@ public class Interaction(){
                 response = Console.ReadLine();
                 response = Input.CheckValid(response, validResponse);
                 if (response == "1") {response = "no name, paige known";}
+                else if (response == "2"){response = "no new party member, paige known";}
+            }
+            else if (response == "no name, paige unknown"){
+                Character.Talk(Unknown, "Er? You sure?");
+                Character.Act(Unknown, "tilt their head, then places their scalp into the palm of their hand");
+                Character.Talk(Unknown, "How about this, I tell you my name, and you tell me yours, m'kay?");
+                Character.Talk(dialoguePartner, "I'm Paige, I'm an adventurer. So, with that out of the way, what is your name?");
+                Text.ColourTextline("1. I don't know my name, sorry.", ConsoleColor.DarkCyan);
+                Text.ColourTextline("2. That's none of your business.", ConsoleColor.DarkRed);
+                validResponse = new(){"1", "2"};
+                response = Console.ReadLine();
+                response = Input.CheckValid(response, validResponse);
+                if (response == "1"){response = "no name, paige known";}
                 else if (response == "2"){response = "no new party member, paige known";}
             }
             if (response == "no name, paige known"){
@@ -65,11 +78,36 @@ public class Interaction(){
                 validResponse = new(){"1", "2", "3"};
                 response = Console.ReadLine();
                 response = Input.CheckValid(response, validResponse);
-                if (response == "1" || response == "2"){
+                if (response == "1" || response == "2"){response = "figuring myself out";}
+                else{response = "not figuring myself out /j";}
+            }
+            if (response == "not figuring myself out /j"){
+                Character.Act(dialoguePartner, "raises her eyebrow and looks intently at you");
+                Character.Talk(dialoguePartner, "What? Why are you here then?");
+                while (response == "not figuring myself out /j"){
+                    Text.ColourTextline("1. I was just joking, I plan on figuring out who I am.", ConsoleColor.DarkCyan);
+                    Text.ColourTextline("2. I'm seeking the Sorceror's Stone, and I intend on finding it. Intel seems to suggest that it is located between 38.897957N, 77.036560W and 51.503368N, 0.127721W", ConsoleColor.Yellow);
+                    Text.ColourTextline("3. That's none of your business.", ConsoleColor.DarkRed);
+                    validResponse = new(){"1", "2", "3"};
+                    response = Console.ReadLine();
+                    response = Input.CheckValid(response, validResponse);
+                    if (response == "2"){
+                        response = "not figuring myself out";
+                    }
+                }
+                if (response == "not figuring myself out"){
+                    Text.ColourTextline("1. I was just joking, I plan on figuring out who I am.", ConsoleColor.DarkCyan);
+                    Text.ColourTextline("2. That's none of your business.", ConsoleColor.DarkRed);
+                    validResponse = new(){"1", "2"};
+                    response = Console.ReadLine();
+                    response = Input.CheckValid(response, validResponse);
+                }
+                if (response == "1"){
+                    Character.Talk(dialoguePartner, "What a... 'fine' sense of humour?");
                     response = "figuring myself out";
                 }
-                else{
-                    response = "not figuring myself out";
+                else if (response == "3"){
+                    response = "no new party member, paige known";
                 }
             }
             if (response == "figuring myself out"){
@@ -78,13 +116,12 @@ public class Interaction(){
                 Character.Talk(dialoguePartner, "Mind if I join?");
                 Text.ColourTextline("1. I'd be happy to have you join", ConsoleColor.DarkCyan);
                 Text.ColourTextline("2. No, I wouldn't mind", ConsoleColor.DarkCyan);
-                Text.ColourTextline("3. Please do", ConsoleColor.DarkGray);
+                Text.ColourTextline("3. Please do", ConsoleColor.DarkCyan);
                 Text.ColourTextline("4. Yeah, I would", ConsoleColor.DarkRed);
                 validResponse = new(){"1", "2", "3", "4"};
                 response = Console.ReadLine();
                 response = Input.CheckValid(response, validResponse);
-                if (response == "1" || response == "2") {response = "new party member";}
-                if (response == "3") {response = "pleading";}
+                if (response == "1" || response == "2" || response == "3") {response = "new party member";}
                 if (response == "4") {response = "no new party member, paige known";}
             }
             if (response == "new party member"){
