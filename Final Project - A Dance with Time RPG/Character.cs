@@ -1,57 +1,71 @@
-public class Character(){
-    public string name;
-    public ConsoleColor colour;
-    public int maxHP;
-    public int currentHP;
-    public int attack;
-    public int defence;
-    public int dodgeChance;
-    public int accuracy = 100;
-    public bool isDown = false;
-    public bool isDead = false;
-    public bool isShopkeeper = false;
-    public List<(string, int)> items;
+
+public class Character()
+{
+    public string Name { get; set; }
+    public ConsoleColor colour { get; set; }
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public int attack { get; set; }
+    public int defence { get; set; }
+    public int dodgeChance { get; set; }
+    public int accuracy { get; set; } = 100;
+    public bool isDown { get; set; } = false;
+    public bool isDead { get; set; } = false;
+    public bool isShopkeeper { get; set; } = false;
+    public List<(string, int)> items { get; set; }
 
     /*/     Due to the removal of the "textSpeed" variable, this code is reused in the Text class, since the NoSpeedPreference method requires a variable textSpeed.
     This is acceptable since I'm unlikely to need a variable textSpeed for any future encounter, and it becomes a lot easier to work with if textSpeed only needs to specified once.    /*/
-    public static void Talk(Character speaker, string dialogue){
-        int textSpeed = Persistence.ReadPersistence("TxtSpd");
-        Text.ColourText(speaker.name + ": ", speaker.colour);
-        foreach (char a in dialogue){
+    public static void Talk(Character speaker, string dialogue)
+    {
+        // int textSpeed = Persistence.ReadPersistence("TxtSpd");
+        int textSpeed = 3;
+        Text.ColourText(speaker.Name + ": ", speaker.colour);
+        foreach (char a in dialogue)
+        {
             Console.Write(a);
-            if (a is ','){
-                Thread.Sleep(textSpeed*3);
+            if (a is ',')
+            {
+                Thread.Sleep(textSpeed * 3);
             }
-            else if (a is '.' or '?' or '!'){
-                Thread.Sleep(textSpeed*6);
+            else if (a is '.' or '?' or '!')
+            {
+                Thread.Sleep(textSpeed * 6);
             }
-            else if (a is ' '){
-                Thread.Sleep(textSpeed*0);
+            else if (a is ' ')
+            {
+                Thread.Sleep(textSpeed * 0);
             }
-            else{
+            else
+            {
                 Thread.Sleep(textSpeed);
             }
         }
         Console.WriteLine();
-        Thread.Sleep(textSpeed*18);
+        Thread.Sleep(textSpeed * 18);
     }
-    public static void Act(Character actor, string action){
-        int textSpeed = Persistence.ReadPersistence("TxtSpd");
+    public static void Act(Character actor, string action)
+    {
+        // int textSpeed = Persistence.ReadPersistence("TxtSpd");
+        int textSpeed = 3;
         Console.Write("* ");
-        if (actor.name == "???"){
-            actor.name = "They";
+        if (actor.Name == "???")
+        {
+            actor.Name = "They";
             actor.colour = ConsoleColor.Gray;
         }
-        Text.ColourText(actor.name + " ", actor.colour);
-        foreach (char a in action){
+        Text.ColourText(actor.Name + " ", actor.colour);
+        foreach (char a in action)
+        {
             Console.Write(a);
             Thread.Sleep(textSpeed);
         }
         Console.WriteLine();
-        if (actor.name == "They"){
-            actor.name = "???";
+        if (actor.Name == "They")
+        {
+            actor.Name = "???";
             actor.colour = ConsoleColor.DarkGray;
         }
-        Thread.Sleep(textSpeed*9);
+        Thread.Sleep(textSpeed * 9);
     }
 }

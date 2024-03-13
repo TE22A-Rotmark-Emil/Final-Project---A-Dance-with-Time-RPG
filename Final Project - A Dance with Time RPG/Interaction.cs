@@ -5,12 +5,12 @@ public class Interaction(){
     public static string Dialogue(string dialogueType, List<Character> dialoguePartners){
         // Since "Unknown" is defined outside of this parameter, they'll have to be redefined in Interaction since it is likely that an interaction can include Unknown.
         Character Unknown = new(){
-            name = "???",
+            Name = "???",
             colour = ConsoleColor.DarkGray
         };
         // Needed for some interactions, such as 'act'.
         Character MC = new(){
-            name = "You",
+            Name = "You",
             colour = ConsoleColor.Gray
         };
         string response = "";
@@ -156,13 +156,26 @@ public class Interaction(){
                 return "Paige doesn't join";
             }
         }
+        if (dialogueType == "rancherRefugePrologue"){
+            Character.Act(MC, "see a stranger in the distance, staring at you. Their gaze is unchanging, static. Their hooded figure solem leaves anything to the imagination, they seem decrepit, but not weak");
+            Character.Act(MC, "notice them blink. How long have you been looking at them? They begin to approach you");
+            if (dialoguePartners.Count > 1){
+                Character.Talk(dialoguePartners[0], "(...) ey! What are you doing? What are you looking at?");
+                Character.Act(MC, "turn around to face " + dialoguePartners[0].Name + ". She seems alive and well. Blinking, breathing. You turn around again, and the hooded figure is right in front of you");
+                Character.Talk(dialoguePartners[0], "Hey hey! Are you a local?");
+                Character.Talk(Unknown, "Yes, I guess you could say that.");
+                Character.Act(Unknown, "haven't stopped looking at you");
+                Console.ReadLine();
+            }
+            return "Awesome";
+        }
         else{
             return "Paige doesn't join";
         }
     }
 
     public static Party NewMember(Character partyMember, Party party){
-        Text.ColourTextline(partyMember.name + " has joined the party!", ConsoleColor.Cyan);
+        Text.ColourTextline(partyMember.Name + " has joined the party!", ConsoleColor.Cyan);
         party.party.Add(partyMember);
         return party;
     }

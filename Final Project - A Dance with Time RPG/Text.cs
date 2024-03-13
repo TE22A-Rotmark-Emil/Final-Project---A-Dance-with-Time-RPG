@@ -109,7 +109,7 @@ public class Text(){
 
     public static void NoSpeedPreference(){
         Character t = new(){
-            name = "dummy"
+            Name = "dummy"
         };
         Console.WriteLine("Would you like a fast, balanced, or slow dialogue speed?");
         Thread.Sleep(750);

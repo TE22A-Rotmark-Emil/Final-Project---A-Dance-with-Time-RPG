@@ -1,13 +1,15 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
 
+using System.Text.Json;
+
 #region Definitions
 string area = "unknown";
 List<Character> dialoguePartners = new();
 int textSpeed;
 
 Character MC = new(){
-    name = "MC",
+    Name = "MC",
     attack = 3,
     defence = 1,
     dodgeChance = 30,
@@ -16,12 +18,12 @@ Character MC = new(){
 };
 
 Character Unknown = new(){
-    name = "???",
+    Name = "???",
     colour = ConsoleColor.DarkGray
 };
 
 Character Paige = new(){
-    name = "Paige",
+    Name = "Paige",
     attack = 1,
     defence = 2,
     dodgeChance = 0,
@@ -30,7 +32,7 @@ Character Paige = new(){
 };
 
 Character Gabriel = new(){
-    name = "Gabriel",
+    Name = "Gabriel",
     attack = 35,
     defence = 10,
     dodgeChance = 0,
@@ -41,10 +43,21 @@ Character Gabriel = new(){
 Party MCParty = new(){
     partyName = ""
 };
-MCParty.party.Add(MC);
+// MCParty.party.Add(MC);
+// MCParty.party.Add(Gabriel);
+
+// string jsonData = JsonSerializer.Serialize(MCParty.party);
+// File.WriteAllText("chars.json", jsonData);
+
+string jsonData = File.ReadAllText("chars.json");
+MCParty.party = JsonSerializer.Deserialize<List<Character>>(jsonData);
+
+// System.Console.WriteLine(jsonData);
+
+Console.ReadLine();
 
 Character Gragerfourth = new(){
-    name = "Gragerfourth",
+    Name = "Gragerfourth",
     isShopkeeper = true,
     colour = ConsoleColor.Red,
     items = new(){
@@ -54,7 +67,11 @@ Character Gragerfourth = new(){
 #endregion
 
 if (File.Exists("PersistentChoice.txt")){
-    textSpeed = Persistence.ReadPersistence("TxtSpd");
+    textSpeed = Persistence.ReadPersistenceInt("TxtSpd");
+    area = Persistence.ReadPersistenceTxt("TxtSpd");
+    if (area == "invalid"){
+        area = "unknown";
+    }
     Text.ColourText("The player has already made a choice, which was ", ConsoleColor.Green);
     Console.Write(textSpeed);
     Console.WriteLine();
@@ -73,12 +90,18 @@ if (area == "unknown"){
         Interaction.NewMember(Paige, MCParty);
         Thread.Sleep(10*textSpeed);
     }
+    if (MCParty.party.Count > 1){
+        File.AppendAllText("PersistentChoice.txt", "PtyMem: " + MCParty.party[1].Name);
+    }
+    else{
+        File.AppendAllText("PersistentChoice.txt", "PtyMem: " + "none");
+    }
     area = "Rancher Refuge";
 }
 
 if (area == "Rancher Refuge"){
     if (MCParty.party.Count > 1){
-        dialoguePartners = new(){Paige, };
+        dialoguePartners = new(){Paige, Gabriel};
     }
-    area = Interaction.Dialogue("", dialoguePartners);
+    area = Interaction.Dialogue("rancherRefugePrologue", dialoguePartners);
 }
