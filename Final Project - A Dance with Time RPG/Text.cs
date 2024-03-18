@@ -174,7 +174,7 @@ public class Text(){
                 choice = false;
             }
         }
-        File.WriteAllText("PersistentChoice.txt", "TxtSpd: " + Convert.ToString(textSpeed));
+        File.WriteAllText("speedPreference.txt", "TxtSpd: " + Convert.ToString(textSpeed));
         return textSpeed;
     }
 }

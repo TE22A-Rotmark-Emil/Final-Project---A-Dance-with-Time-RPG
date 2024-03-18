@@ -3,11 +3,13 @@ using System.Runtime.CompilerServices;
 
 using System.Text.Json;
 
-#region Definitions
+#region GlobalVariables
 string area = "unknown";
 List<Character> dialoguePartners = new();
 int textSpeed;
+#endregion
 
+#region Characters
 Character MC = new(){
     Name = "MC",
     attack = 3,
@@ -40,22 +42,6 @@ Character Gabriel = new(){
     colour = ConsoleColor.DarkYellow
 };
 
-Party MCParty = new(){
-    partyName = ""
-};
-// MCParty.party.Add(MC);
-// MCParty.party.Add(Gabriel);
-
-// string jsonData = JsonSerializer.Serialize(MCParty.party);
-// File.WriteAllText("chars.json", jsonData);
-
-string jsonData = File.ReadAllText("chars.json");
-MCParty.party = JsonSerializer.Deserialize<List<Character>>(jsonData);
-
-// System.Console.WriteLine(jsonData);
-
-Console.ReadLine();
-
 Character Gragerfourth = new(){
     Name = "Gragerfourth",
     isShopkeeper = true,
@@ -66,9 +52,26 @@ Character Gragerfourth = new(){
 };
 #endregion
 
-if (File.Exists("PersistentChoice.txt")){
+#region Parties
+Party MCParty = new(){
+    partyName = ""
+};
+MCParty.party.Add(MC);
+MCParty.party.Add(Gabriel);
+#endregion
+
+#region PersistenceHandling
+string partyData = JsonSerializer.Serialize(MCParty.party);
+File.WriteAllText("mainParty.json", partyData);
+
+partyData = File.ReadAllText("mainParty.json");
+MCParty.party = JsonSerializer.Deserialize<List<Character>>(partyData);
+
+/*/ For the following "File.Exists()", each check is for a different persistence check. If the player 
+has a new party member, for example, it will be accounted for. Each code block is a different check,
+explained by its respective textfile name. /*/
+if (File.Exists("speedPreference.txt")){
     textSpeed = Persistence.ReadPersistenceInt("TxtSpd");
-    area = Persistence.ReadPersistenceTxt("TxtSpd");
     if (area == "invalid"){
         area = "unknown";
     }
@@ -81,6 +84,16 @@ else{
     textSpeed = Text.DecideTextSpeed();
 }
 
+if (File.Exists("mainParty.json")){
+    MCParty.party = JsonSerializer.Deserialize<List<Character>>(partyData);
+}
+
+if (File.Exists("currentArea")){
+    area = Persistence.ReadPersistenceTxt
+}
+#endregion
+
+#region Gameplay
 if (area == "unknown"){    
     Character.Talk(Unknown, "Christ.. this headache is killing me.");
     Character.Talk(Unknown, "W... who are you?");
@@ -90,12 +103,7 @@ if (area == "unknown"){
         Interaction.NewMember(Paige, MCParty);
         Thread.Sleep(10*textSpeed);
     }
-    if (MCParty.party.Count > 1){
-        File.AppendAllText("PersistentChoice.txt", "PtyMem: " + MCParty.party[1].Name);
-    }
-    else{
-        File.AppendAllText("PersistentChoice.txt", "PtyMem: " + "none");
-    }
+    partyData = 
     area = "Rancher Refuge";
 }
 
@@ -105,3 +113,4 @@ if (area == "Rancher Refuge"){
     }
     area = Interaction.Dialogue("rancherRefugePrologue", dialoguePartners);
 }
+#endregion
