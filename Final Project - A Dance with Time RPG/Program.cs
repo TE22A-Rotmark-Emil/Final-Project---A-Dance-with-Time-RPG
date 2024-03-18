@@ -7,6 +7,7 @@ using System.Text.Json;
 string area = "unknown";
 List<Character> dialoguePartners = new();
 int textSpeed;
+string partyData = "";
 #endregion
 
 #region Characters
@@ -57,21 +58,29 @@ Party MCParty = new(){
     partyName = ""
 };
 MCParty.party.Add(MC);
-MCParty.party.Add(Gabriel);
 #endregion
 
 #region PersistenceHandling
-string partyData = JsonSerializer.Serialize(MCParty.party);
-File.WriteAllText("mainParty.json", partyData);
-
-partyData = File.ReadAllText("mainParty.json");
-MCParty.party = JsonSerializer.Deserialize<List<Character>>(partyData);
-
 /*/ For the following "File.Exists()", each check is for a different persistence check. If the player 
 has a new party member, for example, it will be accounted for. Each code block is a different check,
 explained by its respective textfile name. /*/
+if (File.Exists("speedPreference.txt") || File.Exists("mainParty.json") || File.Exists("currentArea.txt")){
+    Text.ColourTextline("A save file was discovered. Would you like to continue on this file? If you answer 'no', your file will be deleted.", ConsoleColor.Yellow);
+    List<string >validResponse = new(){"yes", "no"};
+    string persistenceConsent = Console.ReadLine();
+    persistenceConsent = Input.CheckValid(persistenceConsent, validResponse);
+    if (persistenceConsent == "no"){
+        File.Delete("speedPreference.txt");
+        File.Delete("mainParty.json");
+        File.Delete("currentArea.txt");
+    }
+    else{
+        partyData = File.ReadAllText("mainParty.json");
+    }
+}
+
 if (File.Exists("speedPreference.txt")){
-    textSpeed = Persistence.ReadPersistenceInt("TxtSpd");
+    textSpeed = Persistence.ReadPersistenceInt("TxtSpd", "speedPreference.txt");
     if (area == "invalid"){
         area = "unknown";
     }
@@ -88,9 +97,15 @@ if (File.Exists("mainParty.json")){
     MCParty.party = JsonSerializer.Deserialize<List<Character>>(partyData);
 }
 
-if (File.Exists("currentArea")){
-    area = Persistence.ReadPersistenceTxt
+if (File.Exists("currentArea.txt")){
+    area = Persistence.ReadPersistenceTxt("curArea", "currentArea.txt");
 }
+Console.WriteLine("Successfully read all persistence");
+for (int i = 0; i < MCParty.party.Count; i++){
+    Console.WriteLine(MCParty.party[i].Name);
+}
+Console.WriteLine("Player area is " + area);
+Console.ReadLine();
 #endregion
 
 #region Gameplay
@@ -103,8 +118,9 @@ if (area == "unknown"){
         Interaction.NewMember(Paige, MCParty);
         Thread.Sleep(10*textSpeed);
     }
-    partyData = 
     area = "Rancher Refuge";
+    
+    SaveGame();
 }
 
 if (area == "Rancher Refuge"){
@@ -114,3 +130,14 @@ if (area == "Rancher Refuge"){
     area = Interaction.Dialogue("rancherRefugePrologue", dialoguePartners);
 }
 #endregion
+
+void SaveGame(){
+    partyData = JsonSerializer.Serialize(MCParty.party);
+    File.WriteAllText("mainParty.json", partyData);
+    partyData = File.ReadAllText("mainParty.json");
+    MCParty.party = JsonSerializer.Deserialize<List<Character>>(partyData);
+
+    File.WriteAllText("currentArea.txt", "curArea: " + area);
+
+    Text.ColourTextline("Game saved successfully", ConsoleColor.Yellow);
+}
