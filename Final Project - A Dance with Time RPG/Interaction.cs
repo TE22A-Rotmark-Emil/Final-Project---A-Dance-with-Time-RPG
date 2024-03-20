@@ -8,6 +8,10 @@ public class Interaction(){
             Name = "???",
             colour = ConsoleColor.DarkGray
         };
+        Character Insanity = new(){
+            Name = "Insanity",
+            colour = ConsoleColor.DarkMagenta
+        };
         // Needed for some interactions, such as 'act'.
         Character MC = new(){
             Name = "You",
@@ -156,15 +160,14 @@ public class Interaction(){
                 return "Paige doesn't join";
             }
         }
+
         if (dialogueType == "rancherRefugePrologue"){
             Character.Act(MC, "see a stranger in the distance, staring at you. Their gaze is unchanging, static. Their hooded figure solem leaves anything to the imagination, they seem decrepit, but not weak");
             Character.Act(MC, "notice them blink. How long have you been looking at them? They begin to approach you");
             if (dialoguePartners.Count > 1){
                 Character.Talk(dialoguePartners[0], "(...) ey! What are you doing? What are you looking at?");
-                Character.Act(MC, "turn around to face " + dialoguePartners[0].Name + ". She seems alive and well. Blinking, breathing. You turn around again, and the hooded figure is right in front of you");
-                Character.Talk(dialoguePartners[0], "Hey hey! Are you a local?");
-                Character.Talk(Unknown, "Yes, I guess you could say that.");
-                Character.Act(Unknown, "haven't stopped looking at you");
+                Character.Act(MC, "turn around to face " + dialoguePartners[0].Name + ". She seems alive and well. Blinking, breathing. What are you looking at? What are you looking at? You turn around again, and the hooded figure is right in front of you");
+                Character.Act(MC, "stare into their unchanging gaze. An eternal void that never falters.");
                 Console.ReadLine();
             }
             return "Awesome";

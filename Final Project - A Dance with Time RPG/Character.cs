@@ -20,17 +20,23 @@ public class Character()
     {
         // int textSpeed = Persistence.ReadPersistence("TxtSpd");
         int textSpeed = 3;
-        Text.ColourText(speaker.Name + ": ", speaker.colour);
+        int insanityVariable = 1;
+        if (speaker.Name == "Insanity"){
+            insanityVariable = 2;
+        }
+        else{
+            Text.ColourText(speaker.Name + ": ", speaker.colour);
+        }
         foreach (char a in dialogue)
         {
             Console.Write(a);
             if (a is ',')
             {
-                Thread.Sleep(textSpeed * 3);
+                Thread.Sleep(insanityVariable * textSpeed * 3);
             }
             else if (a is '.' or '?' or '!')
             {
-                Thread.Sleep(textSpeed * 6);
+                Thread.Sleep(insanityVariable * textSpeed * 6);
             }
             else if (a is ' ')
             {
@@ -38,27 +44,37 @@ public class Character()
             }
             else
             {
-                Thread.Sleep(textSpeed);
+                Thread.Sleep(insanityVariable * textSpeed);
             }
         }
         Console.WriteLine();
-        Thread.Sleep(textSpeed * 18);
+        Thread.Sleep(insanityVariable * textSpeed * 18);
     }
     public static void Act(Character actor, string action)
     {
         // int textSpeed = Persistence.ReadPersistence("TxtSpd");
         int textSpeed = 3;
-        Console.Write("* ");
+        int insanityVariable = 1;
+        if (actor.Name == "Insanity"){
+            insanityVariable = 2;
+        }
+        else{
+            Console.Write("* ");
+        }
         if (actor.Name == "???")
         {
             actor.Name = "They";
             actor.colour = ConsoleColor.Gray;
         }
+        else if (actor.Name == "Insanity")
+        {
+            actor.Name = "";
+        }
         Text.ColourText(actor.Name + " ", actor.colour);
         foreach (char a in action)
         {
             Console.Write(a);
-            Thread.Sleep(textSpeed);
+            Thread.Sleep(insanityVariable * textSpeed);
         }
         Console.WriteLine();
         if (actor.Name == "They")
@@ -66,6 +82,6 @@ public class Character()
             actor.Name = "???";
             actor.colour = ConsoleColor.DarkGray;
         }
-        Thread.Sleep(textSpeed * 9);
+        Thread.Sleep(insanityVariable * textSpeed * 9);
     }
 }
