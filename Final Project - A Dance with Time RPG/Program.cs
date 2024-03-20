@@ -111,7 +111,7 @@ for (int i = 0; i < MCParty.party.Count; i++){
 // Console.ReadLine();
 #endregion
 
-Shop.purchaseItem(MCParty.party, Gragerfourth);
+Shop.purchaseItem(MCParty.party, Gragerfourth, "PaigeInitialised");
 
 #region Gameplay
 if (area == "unknown"){    
