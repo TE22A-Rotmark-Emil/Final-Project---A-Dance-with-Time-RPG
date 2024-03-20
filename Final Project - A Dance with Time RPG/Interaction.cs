@@ -183,8 +183,22 @@ public class Interaction(){
 
         if (dialogueType == "rancherRefuge"){
             if (dialoguePartners.Count > 1){
-                Character.Talk();
+                Character.Talk(Unknown, "Ey, 'lil bud?");
+                Character.Talk(dialoguePartners[1], "What happened? You just blanked out!");
+                Text.ColourTextline("1. I don't know.", ConsoleColor.Gray);
+                Text.ColourTextline("2. They weren't blinking.", ConsoleColor.Gray);
+                Text.ColourTextline("3. I couldn't see anything.", ConsoleColor.Gray);
+                Text.ColourTextline("4. Where am I?", ConsoleColor.Gray);
+                validResponse = new(){"1", "2", "3", "4"};
+                response = Console.ReadLine();
+                response = Input.CheckValid(response, validResponse);
+                Character.Talk(Unknown, "Poor thing, totally out of their mind.");
+                Character.Talk(dialoguePartners[0], "I'm Gragerfourth, I'm a merchant, eh? Heard you're from the Mainland - Sergtum?");
+                Character.Act(MC, "don't know what he's talking about.");
+                Character.Talk(dialoguePartners[1], "Say, Gragerfourth, was it? You said you're a merchant. What do you sell?");
+                Character.Talk(dialoguePartners[0], "Eh? Want to see my wares? Sure thing, sure thing! Take a look!");
             }
+            return "unknown";
         }
 
         else{

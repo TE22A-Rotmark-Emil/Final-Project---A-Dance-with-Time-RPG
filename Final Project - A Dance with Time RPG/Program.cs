@@ -111,6 +111,8 @@ for (int i = 0; i < MCParty.party.Count; i++){
 // Console.ReadLine();
 #endregion
 
+Shop.purchaseItem(MCParty.party, Gragerfourth);
+
 #region Gameplay
 if (area == "unknown"){    
     Character.Talk(Unknown, "Christ.. this headache is killing me.");
