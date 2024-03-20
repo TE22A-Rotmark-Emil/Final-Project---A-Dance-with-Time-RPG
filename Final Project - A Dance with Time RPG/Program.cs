@@ -87,9 +87,9 @@ if (File.Exists("speedPreference.txt")){
     if (area == "invalid"){
         area = "unknown";
     }
-    Text.ColourText("The player has already made a choice, which was ", ConsoleColor.Green);
-    Console.Write(textSpeed);
-    Console.WriteLine();
+    // Text.ColourText("The player has already made a choice, which was ", ConsoleColor.Green);
+    // Console.Write(textSpeed);
+    // Console.WriteLine();
 }
 else{
     Text.NoSpeedPreference();
@@ -103,12 +103,12 @@ if (File.Exists("mainParty.json")){
 if (File.Exists("currentArea.txt")){
     area = Persistence.ReadPersistenceTxt("curArea", "currentArea.txt");
 }
-Console.WriteLine("Successfully read all persistence");
+// Console.WriteLine("Successfully read all persistence");
 for (int i = 0; i < MCParty.party.Count; i++){
     Console.WriteLine(MCParty.party[i].Name);
 }
-Console.WriteLine("Player area is " + area);
-Console.ReadLine();
+// Console.WriteLine("Player area is " + area);
+// Console.ReadLine();
 #endregion
 
 #region Gameplay
