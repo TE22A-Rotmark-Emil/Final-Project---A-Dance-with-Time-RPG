@@ -27,15 +27,16 @@ Character Unknown = new(){
 
 Character Paige = new(){
     Name = "Paige",
-    attack = 1,
+    attack = 4,
     defence = 2,
     dodgeChance = 0,
-    maxHP = 10,
+    maxHP = 15,
     colour = ConsoleColor.Green
 };
 
 Character Gabriel = new(){
     Name = "Gabriel",
+    level = 77,
     attack = 35,
     defence = 10,
     dodgeChance = 0,
@@ -75,7 +76,9 @@ if (File.Exists("speedPreference.txt") || File.Exists("mainParty.json") || File.
         File.Delete("currentArea.txt");
     }
     else{
-        partyData = File.ReadAllText("mainParty.json");
+        if (File.Exists("mainParty.json")){
+            partyData = File.ReadAllText("mainParty.json");
+        }
     }
 }
 
@@ -118,16 +121,23 @@ if (area == "unknown"){
         Interaction.NewMember(Paige, MCParty);
         Thread.Sleep(10*textSpeed);
     }
-    area = "Rancher Refuge";
+    area = "rancherRefugeSelection";
     
     SaveGame();
 }
 
-if (area == "Rancher Refuge"){
+if (area == "rancherRefugeSelection"){
     if (MCParty.party.Count > 1){
-        dialoguePartners = new(){Paige, Gabriel};
+        dialoguePartners = new(){Paige};
     }
-    area = Interaction.Dialogue("rancherRefugePrologue", dialoguePartners);
+    Interaction.Dialogue("rancherRefugeInsanityEncounter", dialoguePartners);
+    if (MCParty.party.Count > 1){
+        dialoguePartners = new(){Gragerfourth, Paige};
+    }
+    else{
+        dialoguePartners = new(){Gragerfourth};
+    }
+    Interaction.Dialogue("rancherRefuge", dialoguePartners);
 }
 #endregion
 

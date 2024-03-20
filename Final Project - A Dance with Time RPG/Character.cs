@@ -3,6 +3,8 @@ public class Character()
 {
     public string Name { get; set; }
     public ConsoleColor colour { get; set; }
+    public int level { get; set;} = 1;
+    public int exp { get; set; } = 0;
     public int maxHP { get; set; }
     public int currentHP { get; set; }
     public int attack { get; set; }
@@ -18,11 +20,11 @@ public class Character()
     This is acceptable since I'm unlikely to need a variable textSpeed for any future encounter, and it becomes a lot easier to work with if textSpeed only needs to specified once.    /*/
     public static void Talk(Character speaker, string dialogue)
     {
-        // int textSpeed = Persistence.ReadPersistence("TxtSpd");
-        int textSpeed = 3;
+        int textSpeed = Persistence.ReadPersistenceInt("TxtSpd", "speedPreference.txt");
         int insanityVariable = 1;
         if (speaker.Name == "Insanity"){
             insanityVariable = 2;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
         }
         else{
             Text.ColourText(speaker.Name + ": ", speaker.colour);
@@ -49,28 +51,25 @@ public class Character()
         }
         Console.WriteLine();
         Thread.Sleep(insanityVariable * textSpeed * 18);
+        Console.ResetColor();
     }
     public static void Act(Character actor, string action)
     {
-        // int textSpeed = Persistence.ReadPersistence("TxtSpd");
-        int textSpeed = 3;
+        int textSpeed = Persistence.ReadPersistenceInt("TxtSpd", "speedPreference.txt");
         int insanityVariable = 1;
-        if (actor.Name == "Insanity"){
-            insanityVariable = 2;
-        }
-        else{
-            Console.Write("* ");
-        }
         if (actor.Name == "???")
         {
             actor.Name = "They";
             actor.colour = ConsoleColor.Gray;
         }
-        else if (actor.Name == "Insanity")
-        {
-            actor.Name = "";
+        if (actor.Name == "Insanity"){
+            insanityVariable = 2;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
         }
-        Text.ColourText(actor.Name + " ", actor.colour);
+        else{
+            Console.Write("* ");
+            Text.ColourText(actor.Name + " ", actor.colour);
+        }
         foreach (char a in action)
         {
             Console.Write(a);
@@ -82,6 +81,11 @@ public class Character()
             actor.Name = "???";
             actor.colour = ConsoleColor.DarkGray;
         }
+        else if (actor.Name == "")
+        {
+            actor.Name = "Insanity";
+        }
         Thread.Sleep(insanityVariable * textSpeed * 9);
+        Console.ResetColor();
     }
 }

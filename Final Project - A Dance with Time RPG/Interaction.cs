@@ -10,7 +10,6 @@ public class Interaction(){
         };
         Character Insanity = new(){
             Name = "Insanity",
-            colour = ConsoleColor.DarkMagenta
         };
         // Needed for some interactions, such as 'act'.
         Character MC = new(){
@@ -161,19 +160,35 @@ public class Interaction(){
             }
         }
 
-        if (dialogueType == "rancherRefugePrologue"){
+        if (dialogueType == "rancherRefugeInsanityEncounter"){
             Character.Act(MC, "see a stranger in the distance, staring at you. Their gaze is unchanging, static. Their hooded figure solem leaves anything to the imagination, they seem decrepit, but not weak");
             Character.Act(MC, "notice them blink. How long have you been looking at them? They begin to approach you");
             if (dialoguePartners.Count > 1){
                 Character.Talk(dialoguePartners[0], "(...) ey! What are you doing? What are you looking at?");
                 Character.Act(MC, "turn around to face " + dialoguePartners[0].Name + ". She seems alive and well. Blinking, breathing. What are you looking at? What are you looking at? You turn around again, and the hooded figure is right in front of you");
                 Character.Act(MC, "stare into their unchanging gaze. An eternal void that never falters.");
+                Character.Talk(Insanity, "What are you looking at?");
+                Character.Act(Insanity, "W h a t  a r e  y o u  l o o k i n g  a t ?");
                 Console.ReadLine();
             }
-            return "Awesome";
+            else{
+                Character.Talk(Unknown, "What's wrong, sheep? Are you lost?");
+                Character.Act(MC, "stare into their blank face. Sheep? You're not a sheep. Who does this guy think they are?");
+                Character.Act(MC, "take a step forward, and are immediately impaled by a spear. Blood? Blood. You're bleeding. This guy thinks they're an angel.");
+                Character.Talk(Insanity, "An angel, in a place like this? Who does this guy think they are? An angel. An angel. Sheep. Sheep. You aren't sheep.");
+                Character.Act(Insanity, "Sheep. Sheep. Sheep. Sheep. S h e e p .");
+            }
+            return "rancherRefuge";
         }
+
+        if (dialogueType == "rancherRefuge"){
+            if (dialoguePartners.Count > 1){
+                Character.Talk();
+            }
+        }
+
         else{
-            return "Paige doesn't join";
+            return "unknown";
         }
     }
 
