@@ -12,7 +12,9 @@ public class Text(){
         Console.ResetColor();
         return(text, colourOption);
     }
-
+    /* Whenever this(RemoveJunkTxt / RemoveJunkInt) is called, the listed sections in the first column are replaced with the second column, effectively removing
+    unintentional flaws in text, such as accidentally writing "1´" or " 1" */
+    /* PURCHASEITEM (IN ITS CURRENT FORM) IS INCOMPATIBLE WITH THIS FUNCTION AS EACH ACCEPTED ITEM  */
     public static string RemoveJunkTxt(string text){
         text = text.ToLower();
         text = text.Replace(" ", "");

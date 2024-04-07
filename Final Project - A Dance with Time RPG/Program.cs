@@ -140,6 +140,12 @@ if (area == "rancherRefugeSelection"){
         dialoguePartners = new(){Gragerfourth};
     }
     Interaction.Dialogue("rancherRefuge", dialoguePartners);
+    if(MCParty.party.Count > 1){
+        Shop.purchaseItem(MCParty.party, Gragerfourth, "PaigeInitialised");
+    }
+    else{
+
+    }
 }
 #endregion
 

@@ -1,9 +1,11 @@
 using System.IO.Pipes;
 using System.Text.Json.Serialization;
 
+/* Interactions is a class which is meant to simplify the visual structure of the "Program.cs" so that it is not cluttered with the interactions in story. */
+
 public class Interaction(){
+    /* Dialogue returns the location data, as the end of each encounter intuitively moves you onto the next - and the structure of Program.cs necessitates */
     public static string Dialogue(string dialogueType, List<Character> dialoguePartners){
-        // Since "Unknown" is defined outside of this parameter, they'll have to be redefined in Interaction since it is likely that an interaction can include Unknown.
         Character Unknown = new(){
             Name = "???",
             colour = ConsoleColor.DarkGray
