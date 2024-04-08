@@ -1,8 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Runtime;
 
 public class Battle(){
     public static bool Fight(List<Character> MCTeam, List<Character> Opposition){
+        /* Using this ugly solution instead of a proper one since setting currentHP to maxHP in
+        the Character class results in the Character having 0 HP as maxHP is not set in the class */
+        // foreach (Character tM in MCTeam && Opposition){
+        //     tM.currentHP = tM.maxHP;
+        // }
         foreach (Character teamMember in MCTeam){
             Text.ColourText("What will ", ConsoleColor.Gray);
             Text.ColourText(teamMember.Name, teamMember.colour);
@@ -27,7 +33,10 @@ public class Battle(){
                     }
                 }
                 string targetOption = Console.ReadLine();
-                targetOption = 
+                targetOption = Input.CheckValid(targetOption, validInputs);
+                foreach (Character enemy in Opposition){
+                    
+                }
             }
             else{
                 target = Opposition[0];
@@ -56,6 +65,7 @@ public class Battle(){
                 int damageTaken = actor.attack - target.defence;
                 target.currentHP -= damageTaken;
                 if (target.currentHP <= 0){
+                    Text.ColourText(target.currentHP.ToString(), target.colour);
                     Text.ColourText(target.Name, target.colour);
                     Text.ColourTextline(" has fainted!", ConsoleColor.Gray);
                 }
@@ -65,9 +75,9 @@ public class Battle(){
                     Text.ColourText(damageTaken.ToString(), ConsoleColor.DarkRed);
                     Text.ColourText(" damage! ", ConsoleColor.Gray);
                     Text.ColourText(target.Name, target.colour);
-                    Text.ColourText( "now has ", ConsoleColor.Gray);
+                    Text.ColourText( " now has ", ConsoleColor.Gray);
                     Text.ColourText(target.currentHP.ToString(), target.colour);
-                    Text.ColourText(" HP left!", ConsoleColor.Gray);
+                    Text.ColourTextline(" HP left!", ConsoleColor.Gray);
                 }
             }
         }

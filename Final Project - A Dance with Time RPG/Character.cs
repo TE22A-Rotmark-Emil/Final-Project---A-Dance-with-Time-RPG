@@ -1,11 +1,21 @@
 
-public class Character()
+public class Character
 {
+    private int _maxHP;
+
     public string Name { get; set; }
     public ConsoleColor colour { get; set; }
-    public int level { get; set;} = 1;
+    public int level { get; set; } = 1;
     public int exp { get; set; } = 0;
-    public int maxHP { get; set; }
+    public int maxHP
+    {
+        get => _maxHP;
+        set
+        {
+            _maxHP = value;
+            currentHP = value;
+        }
+    }
     public int currentHP { get; set; }
     public int attack { get; set; }
     public int defence { get; set; }
@@ -22,11 +32,13 @@ public class Character()
     {
         int textSpeed = Persistence.ReadPersistenceInt("TxtSpd", "speedPreference.txt");
         int insanityVariable = 1;
-        if (speaker.Name == "Insanity"){
+        if (speaker.Name == "Insanity")
+        {
             insanityVariable = 2;
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
         }
-        else{
+        else
+        {
             Text.ColourText(speaker.Name + ": ", speaker.colour);
         }
         foreach (char a in dialogue)
@@ -62,11 +74,13 @@ public class Character()
             actor.Name = "They";
             actor.colour = ConsoleColor.Gray;
         }
-        if (actor.Name == "Insanity"){
+        if (actor.Name == "Insanity")
+        {
             insanityVariable = 2;
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
         }
-        else{
+        else
+        {
             Console.Write("* ");
             Text.ColourText(actor.Name + " ", actor.colour);
         }

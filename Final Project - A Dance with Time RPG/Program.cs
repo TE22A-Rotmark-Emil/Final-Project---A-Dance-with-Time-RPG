@@ -46,6 +46,7 @@ Character Gabriel = new(){
 };
 
 Character Gragerfourth = new(){
+    maxHP = 20,
     Name = "Gragerfourth",
     isShopkeeper = true,
     colour = ConsoleColor.Red,
@@ -111,6 +112,13 @@ for (int i = 0; i < MCParty.party.Count; i++){
 // Console.WriteLine("Player area is " + area);
 // Console.ReadLine();
 #endregion
+
+Party gragParty = new(){
+    partyName = ""
+};
+gragParty.party.Add(Gragerfourth);
+
+Battle.Fight(MCParty.party, gragParty.party);
 
 Shop.purchaseItem(MCParty.party, Gragerfourth, "PaigeInitialised");
 
