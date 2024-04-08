@@ -45,6 +45,9 @@ Character Gabriel = new(){
     colour = ConsoleColor.DarkYellow
 };
 
+Party gab = new();
+gab.party.Add(Gabriel);
+
 Character Gragerfourth = new(){
     maxHP = 20,
     Name = "Gragerfourth",
@@ -113,20 +116,12 @@ for (int i = 0; i < MCParty.party.Count; i++){
 // Console.ReadLine();
 #endregion
 
-Party gragParty = new(){
-    partyName = ""
-};
-gragParty.party.Add(Gragerfourth);
-gragParty.party.Add(Paige);
-
-Battle.Fight(MCParty.party, gragParty.party);
-
-Shop.purchaseItem(MCParty.party, Gragerfourth, "PaigeInitialised");
+Battle.Fight(MCParty.party, gab.party, "Angel");
 
 #region Gameplay
-while (gameplayLoop == true){
+// while (gameplayLoop == true){
 
-}
+// }
 if (area == "unknown"){    
     Character.Talk(Unknown, "Christ.. this headache is killing me.");
     Character.Talk(Unknown, "W... who are you?");
