@@ -5,6 +5,7 @@ using System.Text.Json;
 
 #region GlobalVariables
 string area = "unknown";
+bool gameplayLoop = true;
 List<Character> dialoguePartners = new();
 int textSpeed;
 string partyData = "";
@@ -62,9 +63,9 @@ MCParty.party.Add(MC);
 #endregion
 
 #region PersistenceHandling
-/*/ For the following "File.Exists()", each check is for a different persistence check. If the player 
+/* For the following "File.Exists()", each check is for a different persistence check. If the player 
 has a new party member, for example, it will be accounted for. Each code block is a different check,
-explained by its respective textfile name. /*/
+explained by its respective textfile name. */
 if (File.Exists("speedPreference.txt") || File.Exists("mainParty.json") || File.Exists("currentArea.txt")){
     Text.ColourTextline("A save file was discovered. Would you like to continue on this file? If you answer 'no', your file will be deleted.", ConsoleColor.Yellow);
     List<string >validResponse = new(){"yes", "no"};
@@ -114,6 +115,9 @@ for (int i = 0; i < MCParty.party.Count; i++){
 Shop.purchaseItem(MCParty.party, Gragerfourth, "PaigeInitialised");
 
 #region Gameplay
+while (gameplayLoop == true){
+
+}
 if (area == "unknown"){    
     Character.Talk(Unknown, "Christ.. this headache is killing me.");
     Character.Talk(Unknown, "W... who are you?");
