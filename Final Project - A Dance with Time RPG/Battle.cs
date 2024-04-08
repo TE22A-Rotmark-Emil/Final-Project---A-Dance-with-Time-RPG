@@ -4,11 +4,6 @@ using System.Runtime;
 
 public class Battle(){
     public static bool Fight(List<Character> MCTeam, List<Character> Opposition){
-        /* Using this ugly solution instead of a proper one since setting currentHP to maxHP in
-        the Character class results in the Character having 0 HP as maxHP is not set in the class */
-        // foreach (Character tM in MCTeam && Opposition){
-        //     tM.currentHP = tM.maxHP;
-        // }
         foreach (Character teamMember in MCTeam){
             Text.ColourText("What will ", ConsoleColor.Gray);
             Text.ColourText(teamMember.Name, teamMember.colour);
@@ -25,23 +20,26 @@ public class Battle(){
                 validInputs.Clear();
                 for (int i = 0; i < Opposition.Count; i++)
                 {
-                    foreach (Character enemy in Opposition){
-                        Text.ColourText((i+1).ToString(), ConsoleColor.Gray);
-                        Text.ColourText(" ", ConsoleColor.Gray);
-                        Text.ColourTextline(enemy.Name, enemy.colour);
-                        validInputs.Append(i+1.ToString());
-                    }
+                int j = i;
+                    j++;
+                    Text.ColourText(j.ToString(), ConsoleColor.Gray);
+                    Text.ColourText(" ", ConsoleColor.Gray);
+                    j--;
+                    Text.ColourTextline(Opposition[j].Name, Opposition[j].colour);
+                    j++;
+                    validInputs.Add(j.ToString());
                 }
                 string targetOption = Console.ReadLine();
                 targetOption = Input.CheckValid(targetOption, validInputs);
-                foreach (Character enemy in Opposition){
-                    
-                }
+                target = Opposition[int.Parse(targetOption)-1];
             }
             else{
                 target = Opposition[0];
             }
             if (fightOption == "1"){Damage(teamMember, target);}
+            else{
+                Console.WriteLine(teamMember + " has " + teamMember.currentHP + "HP");
+            }
         }
 
         void Damage(Character actor, Character target){

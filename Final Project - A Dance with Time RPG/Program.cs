@@ -117,6 +117,7 @@ Party gragParty = new(){
     partyName = ""
 };
 gragParty.party.Add(Gragerfourth);
+gragParty.party.Add(Paige);
 
 Battle.Fight(MCParty.party, gragParty.party);
 
