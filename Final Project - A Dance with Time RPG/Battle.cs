@@ -30,7 +30,7 @@ public class Battle(){
                             {
                             int j = i;
                                 j++;
-                                Text.ColourText(j.ToString(), ConsoleColor.Gray);
+                                Text.ColourText(j.ToString() + ".", ConsoleColor.Gray);
                                 Text.ColourText(" ", ConsoleColor.Gray);
                                 j--;
                                 Text.ColourTextline(Opposition[j].Name, Opposition[j].colour);
@@ -142,13 +142,14 @@ public class Battle(){
                     {
                         int j = i;
                         j++;
-                        Text.ColourText(j.ToString(), ConsoleColor.Gray);
+                        Text.ColourText(j.ToString() + ".", ConsoleColor.Gray);
                         Text.ColourText(" ", ConsoleColor.Gray);
                         j--;
                         Text.ColourText(shields[j].Item1, ConsoleColor.Cyan);
                         Text.ColourText(" (", ConsoleColor.Gray);
                         Text.ColourText("+" + shields[j].Item2.ToString(), ConsoleColor.Blue);
-                        Text.ColourText(")", ConsoleColor.Gray);
+                        Text.ColourText(") ", ConsoleColor.Gray);
+                        Text.ColourTextline(defender.defence.ToString() + " defence --> " + (defender.defence + shields[j].Item2).ToString() + " defence", defender.colour);
                         j++;
                         validInputs.Add(j.ToString());
                     }
