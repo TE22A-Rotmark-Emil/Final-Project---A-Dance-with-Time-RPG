@@ -122,42 +122,45 @@ public class Battle(){
                     defender.items.Add(defender.equippedItem);
                     defender.equippedItem = ("Fist", 0, "Weapon");
                 }
-                else{
-
-                }
             }
-            else{    
-                List<(string, int, string)> shields = new();
-                foreach ((string, int, string) item in defender.items){
-                    if (item.Item3 == "Shield"){
-                        shields.Add(item);
+            else if (defend == true){
+                if (defender.items.Count != 0){
+                    List<(string, int, string)> shields = new();
+                    foreach ((string, int, string) item in defender.items){
+                        if (item.Item3 == "Shield"){
+                            shields.Add(item);
+                        }
+                    }
+                    if (shields.Count > 1){
+                        Text.ColourText("Which shield will ", ConsoleColor.Gray);
+                        Text.ColourText(defender.Name, defender.colour);
+                        Text.ColourTextline(" equip?", ConsoleColor.Gray);
+                        List<string> validInputs = new();
+                        for (int i = 0; i < shields.Count; i++)
+                        {
+                            int j = i;
+                            j++;
+                            Text.ColourText(j.ToString() + ".", ConsoleColor.Gray);
+                            Text.ColourText(" ", ConsoleColor.Gray);
+                            j--;
+                            Text.ColourText(shields[j].Item1, ConsoleColor.Cyan);
+                            Text.ColourText(" (", ConsoleColor.Gray);
+                            Text.ColourText("+" + shields[j].Item2.ToString(), ConsoleColor.Blue);
+                            Text.ColourText(") ", ConsoleColor.Gray);
+                            Text.ColourTextline(defender.defence.ToString() + " defence --> " + (defender.defence + shields[j].Item2).ToString() + " defence", defender.colour);
+                            j++;
+                            validInputs.Add(j.ToString());
+                        }
+                        string shieldOption = Console.ReadLine();
+                        shieldOption = Input.CheckValid(shieldOption, validInputs);
+                        defender.equippedItem = shields[int.Parse(shieldOption)-1];
+                    }
+                    else if (shields.Count == 0){
+                        defender.equippedItem = new("Fist", 1, "Shield");
+                        defender.defence += defender.equippedItem.stat;
                     }
                 }
-                if (shields.Count > 1){
-                    Text.ColourText("Which shield will ", ConsoleColor.Gray);
-                    Text.ColourText(defender.Name, defender.colour);
-                    Text.ColourTextline(" equip?", ConsoleColor.Gray);
-                    List<string> validInputs = new();
-                    for (int i = 0; i < shields.Count; i++)
-                    {
-                        int j = i;
-                        j++;
-                        Text.ColourText(j.ToString() + ".", ConsoleColor.Gray);
-                        Text.ColourText(" ", ConsoleColor.Gray);
-                        j--;
-                        Text.ColourText(shields[j].Item1, ConsoleColor.Cyan);
-                        Text.ColourText(" (", ConsoleColor.Gray);
-                        Text.ColourText("+" + shields[j].Item2.ToString(), ConsoleColor.Blue);
-                        Text.ColourText(") ", ConsoleColor.Gray);
-                        Text.ColourTextline(defender.defence.ToString() + " defence --> " + (defender.defence + shields[j].Item2).ToString() + " defence", defender.colour);
-                        j++;
-                        validInputs.Add(j.ToString());
-                    }
-                    string shieldOption = Console.ReadLine();
-                    shieldOption = Input.CheckValid(shieldOption, validInputs);
-                    defender.equippedItem = shields[int.Parse(shieldOption)-1];
-                }
-                else if (shields.Count == 0){
+                else{
 
                 }
             }
