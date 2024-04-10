@@ -24,7 +24,8 @@ public class Character
     public bool isDown { get; set; } = false;
     public bool isDead { get; set; } = false;
     public bool isShopkeeper { get; set; } = false;
-    public List<(string, int)> items { get; set; }
+    public List<(string name, int price, string identifier)> items { get; set; } = new();
+    public (string name, int stat, string identifier) equippedItem { get; set; } = ("Fist", 0, "Weapon");
 
     /*/     Due to the removal of the "textSpeed" variable, this code is reused in the Text class, since the NoSpeedPreference method requires a variable textSpeed.
     This is acceptable since I'm unlikely to need a variable textSpeed for any future encounter, and it becomes a lot easier to work with if textSpeed only needs to specified once.    /*/

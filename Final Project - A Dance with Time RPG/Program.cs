@@ -18,7 +18,10 @@ Character MC = new(){
     defence = 1,
     dodgeChance = 30,
     maxHP = 20,
-    colour = ConsoleColor.Blue
+    colour = ConsoleColor.Blue,
+    items = new(){
+        ("Broken Shield", 3, "Shield"), ("Golden Shield", 8, "Shield"), ("Pineapple Pizza", 3, "Food")
+    }
 };
 
 Character Unknown = new(){
@@ -45,8 +48,8 @@ Character Gabriel = new(){
     colour = ConsoleColor.DarkYellow
 };
 
-Party gab = new();
-gab.party.Add(Gabriel);
+Party aa = new();
+aa.party.Add(Paige);
 
 Character Gragerfourth = new(){
     maxHP = 20,
@@ -54,7 +57,7 @@ Character Gragerfourth = new(){
     isShopkeeper = true,
     colour = ConsoleColor.Red,
     items = new(){
-        ("Cinnamon Bun", 5), ("Yorkshire Pudding", 10), ("Apple Pie", 7), ("Crêpe", 5), ("Waffle", 5)
+        ("Cinnamon Bun", 5, "Food"), ("Yorkshire Pudding", 10, "Food"), ("Apple Pie", 7, "Food"), ("Crêpe", 5, "Food"), ("Waffle", 5, "Food")
     }
 };
 #endregion
@@ -116,7 +119,8 @@ for (int i = 0; i < MCParty.party.Count; i++){
 // Console.ReadLine();
 #endregion
 
-Battle.Fight(MCParty.party, gab.party, "Angel");
+MCParty.party.Add(Gragerfourth);
+Battle.Fight(MCParty.party, aa.party, "No");
 
 #region Gameplay
 // while (gameplayLoop == true){

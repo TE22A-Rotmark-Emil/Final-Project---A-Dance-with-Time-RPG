@@ -13,7 +13,7 @@ class Shop{
                 Character.Talk(Shopkeeper, "What'cha want, eh?");
             }
         }
-        foreach ((string, int) shopItem in Shopkeeper.items){
+        foreach ((string, int, string) shopItem in Shopkeeper.items){
             Text.ColourText(shopItem.Item1, ConsoleColor.Green);
             Text.ColourText(" costs ", ConsoleColor.Gray);
             Text.ColourText(shopItem.Item2.ToString(), ConsoleColor.Yellow);
