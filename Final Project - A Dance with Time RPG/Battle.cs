@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime;
@@ -15,6 +16,7 @@ public class Battle(){
                         Text.ColourTextline("It is " + teamMember.Name + "'s turn!", teamMember.colour);        
                         Thread.Sleep(textSpeed * 4);
                         Defend(teamMember, false);
+                        Console.WriteLine(teamMember.defence);
                         Text.ColourText("What will ", ConsoleColor.Gray);
                         Text.ColourText(teamMember.Name, teamMember.colour);
                         Text.ColourTextline(" do?", ConsoleColor.Gray);
@@ -62,6 +64,7 @@ public class Battle(){
                         int action = Random.Shared.Next(2);
                         if (action == 0){
                             int target = Random.Shared.Next(MCTeam.Count);
+                            Text.ColourTextline(enemy + " attacks " + MCTeam[target], ConsoleColor.Gray);
                             Damage(enemy, MCTeam[target]);
                         }
                         else if (action == 1){
@@ -139,10 +142,12 @@ public class Battle(){
                     defender.defence -= defender.equippedItem.stat;
                     defender.items.Add(defender.equippedItem);
                     defender.equippedItem = ("Fist", 0, "Weapon");
+                    Console.WriteLine(defender.defence);
                 }
             }
             else if (defend == true){
                 List<(string, int, string)> shields = new();
+                shields.Clear();
                 foreach ((string, int, string) item in defender.items){
                     if (item.Item3 == "Shield"){
                         shields.Add(item);
@@ -155,6 +160,7 @@ public class Battle(){
                     Text.ColourTextline(")", ConsoleColor.Gray);
                     defender.equippedItem = new("Fist", 1, "Shield");
                     defender.defence += defender.equippedItem.stat;
+                    Console.WriteLine(defender.defence);
                 }
                 else if (shields.Count != 0 && MCTeam.Contains(defender)){
                     if (shields.Count > 1){
@@ -180,6 +186,7 @@ public class Battle(){
                         string shieldOption = Console.ReadLine();
                         shieldOption = Input.CheckValid(shieldOption, validInputs);
                         defender.equippedItem = shields[int.Parse(shieldOption)-1];
+                        defender.defence += defender.equippedItem.stat;
                     }
                 }
             }
