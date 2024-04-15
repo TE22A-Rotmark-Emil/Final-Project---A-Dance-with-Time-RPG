@@ -77,6 +77,7 @@ public class Battle(){
                         }
                         if (fightOption == "1"){Damage(teamMember, target);}
                         if (fightOption == "2"){Defend(teamMember, true);}
+                        if (fightOption == "3"){Item(teamMember);}
                     }
                     else{
                         Text.ColourTextline(teamMember.Name + " is knocked out and cannot fight!", teamMember.colour);
@@ -233,8 +234,21 @@ public class Battle(){
                     items.Add(item);
                 }
             }
-            if (items.Count > 1){
-                
+            if (items.Count != 0){
+                List<string> validInputs = new();
+                for (int i = 0; i < items.Count; i++){
+                    int j = i;
+                    j++;
+                    Text.ColourText(j.ToString() + ".", ConsoleColor.Gray);
+                    Text.ColourText(" ", ConsoleColor.Gray);
+                    j--;
+                    if (items[j].Item3 == "Food"){
+                        Text.ColourText(items[j].Item1 + " (" + items[j].Item3 + ")", ConsoleColor.Green);
+                        Text.ColourTextline(" - heals " + items[j].Item2 + "HP", ConsoleColor.DarkGreen);
+                    }
+                    j++;
+                    validInputs.Add(j.ToString());
+                }
             }
         }
         return false;
