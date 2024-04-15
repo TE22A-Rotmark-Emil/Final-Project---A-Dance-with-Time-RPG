@@ -60,6 +60,7 @@ Character Gragerfourth = new(){
         ("Cinnamon Bun", 5, "Food"), ("Yorkshire Pudding", 10, "Food"), ("Apple Pie", 7, "Food"), ("Crêpe", 5, "Food"), ("Waffle", 5, "Food")
     }
 };
+aa.party.Add(Gragerfourth);
 #endregion
 
 #region Parties
@@ -111,12 +112,6 @@ if (File.Exists("mainParty.json")){
 if (File.Exists("currentArea.txt")){
     area = Persistence.ReadPersistenceTxt("curArea", "currentArea.txt");
 }
-// Console.WriteLine("Successfully read all persistence");
-for (int i = 0; i < MCParty.party.Count; i++){
-    Console.WriteLine(MCParty.party[i].Name);
-}
-// Console.WriteLine("Player area is " + area);
-// Console.ReadLine();
 #endregion
 
 MCParty.party.Add(Gragerfourth);

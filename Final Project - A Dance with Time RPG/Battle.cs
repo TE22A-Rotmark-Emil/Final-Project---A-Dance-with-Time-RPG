@@ -7,10 +7,36 @@ using Microsoft.VisualBasic;
 
 public class Battle(){
     public static bool Fight(List<Character> MCTeam, List<Character> Opposition, string SpecialCase){
+        Character none = new(){
+            Name = "null"
+        };
+        int textSpeed = Persistence.ReadPersistenceInt("TxtSpd", "speedPreference.txt");
+        bool hasWon = false;
+        bool hasLost = false;
+        int totalOut = 0;
         if (SpecialCase == "No"){
-            int textSpeed = Persistence.ReadPersistenceInt("TxtSpd", "speedPreference.txt");
-            bool isAlive = true;
-            while (isAlive == true){
+            while (hasWon == false && hasLost == false){
+                foreach (Character person in MCTeam){
+                    if (person.currentHP <= 0){
+                        totalOut++;
+                    }
+                }
+                if (totalOut == MCTeam.Count){
+                    hasLost = true;
+                    break;
+                }
+                else{
+                    totalOut = 0;
+                }
+                foreach (Character enemy in Opposition){
+                    if (enemy.currentHP <= 0){
+                        totalOut++;
+                    }
+                }
+                if (totalOut == Opposition.Count){
+                    hasWon = true;
+                    break;
+                }
                 foreach (Character teamMember in MCTeam){
                     if (teamMember.currentHP > 0){  
                         Text.ColourTextline("It is " + teamMember.Name + "'s turn!", teamMember.colour);        
@@ -28,7 +54,7 @@ public class Battle(){
                         string fightOption = Console.ReadLine();
                         fightOption = Input.CheckValid(fightOption, validInputs);
                         Character target = new();
-                        if (Opposition.Count > 1){
+                        if (Opposition.Count > 1 && fightOption == "1"){
                             Text.ColourTextline("Who will you attack?", ConsoleColor.Gray);
                             validInputs.Clear();
                             for (int i = 0; i < Opposition.Count; i++)
@@ -53,7 +79,7 @@ public class Battle(){
                         if (fightOption == "2"){Defend(teamMember, true);}
                     }
                     else{
-                        Console.WriteLine(teamMember + " has " + teamMember.currentHP + "HP");
+                        Text.ColourTextline(teamMember.Name + " is knocked out and cannot fight!", teamMember.colour);
                     }
                 }
                 foreach (Character enemy in Opposition){
@@ -64,7 +90,7 @@ public class Battle(){
                         int action = Random.Shared.Next(2);
                         if (action == 0){
                             int target = Random.Shared.Next(MCTeam.Count);
-                            Text.ColourTextline(enemy + " attacks " + MCTeam[target], ConsoleColor.Gray);
+                            Text.ColourTextline(enemy.Name + " attacks " + MCTeam[target].Name, ConsoleColor.Gray);
                             Damage(enemy, MCTeam[target]);
                         }
                         else if (action == 1){
@@ -93,6 +119,12 @@ public class Battle(){
             MCTeam[0].dodgeChance = 0;
             Damage(Opposition[0], MCTeam[0]);
             MCTeam[0].dodgeChance = 30;
+        }
+        if (hasLost == true){
+            Text.ColourTextline("You lost!", ConsoleColor.Red);
+        }
+        else if (hasWon == true){
+            Text.ColourTextline("You won!", ConsoleColor.Yellow);
         }
 
         void Damage(Character actor, Character target){
@@ -142,25 +174,27 @@ public class Battle(){
                     defender.defence -= defender.equippedItem.stat;
                     defender.items.Add(defender.equippedItem);
                     defender.equippedItem = ("Fist", 0, "Weapon");
-                    Console.WriteLine(defender.defence);
                 }
             }
             else if (defend == true){
                 List<(string, int, string)> shields = new();
-                shields.Clear();
                 foreach ((string, int, string) item in defender.items){
                     if (item.Item3 == "Shield"){
                         shields.Add(item);
                     }
                 }
                 if (shields.Count == 0 || !MCTeam.Contains(defender)){
-                    Text.ColourTextline(defender.Name + " has no shield!", defender.colour);
-                    Text.ColourText("They defend with their fists. " + "(", ConsoleColor.Gray);
-                    Text.ColourText(defender.defence.ToString() + " --> " + (defender.defence+1).ToString(), defender.colour);
-                    Text.ColourTextline(")", ConsoleColor.Gray);
+                    if (MCTeam.Contains(defender)){
+                        Text.ColourTextline(defender.Name + " has no shield!", defender.colour);
+                        Text.ColourText("They defend with their fists. " + "(", ConsoleColor.Gray);
+                        Text.ColourText(defender.defence.ToString() + " --> " + (defender.defence+1).ToString(), defender.colour);
+                        Text.ColourTextline(")", ConsoleColor.Gray);
+                    }
+                    else{
+                        Text.ColourTextline(defender.Name + " defends.", defender.colour);
+                    }
                     defender.equippedItem = new("Fist", 1, "Shield");
                     defender.defence += defender.equippedItem.stat;
-                    Console.WriteLine(defender.defence);
                 }
                 else if (shields.Count != 0 && MCTeam.Contains(defender)){
                     if (shields.Count > 1){
@@ -186,9 +220,21 @@ public class Battle(){
                         string shieldOption = Console.ReadLine();
                         shieldOption = Input.CheckValid(shieldOption, validInputs);
                         defender.equippedItem = shields[int.Parse(shieldOption)-1];
+                        defender.items.Remove(defender.equippedItem);
                         defender.defence += defender.equippedItem.stat;
                     }
                 }
+            }
+        }
+        void Item(Character user){
+            List<(string, int, string)> items = new();
+            foreach ((string, int, string) item in user.items){
+                if (item.Item3 != "Shield"){
+                    items.Add(item);
+                }
+            }
+            if (items.Count > 1){
+                
             }
         }
         return false;

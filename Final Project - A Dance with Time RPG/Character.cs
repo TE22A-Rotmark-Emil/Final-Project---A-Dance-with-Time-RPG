@@ -21,8 +21,8 @@ public class Character
     public int defence { get; set; }
     public int dodgeChance { get; set; }
     public int accuracy { get; set; } = 100;
-    public bool isDown { get; set; } = false;
-    public bool isDead { get; set; } = false;
+    // public bool isDown { get; set; } = false;
+    // public bool isDead { get; set; } = false;
     public bool isShopkeeper { get; set; } = false;
     public List<(string name, int price, string identifier)> items { get; set; } = new();
     public (string name, int stat, string identifier) equippedItem { get; set; } = ("Fist", 0, "Weapon");
